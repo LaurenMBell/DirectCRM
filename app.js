@@ -65,27 +65,27 @@ app.get('/clients', async function(req, res) {
 });
 
 //Product Page
-app.get('/products', function(req, res) {
+app.get('/products', async function(req, res) {
     res.render('pages/products');
 });
 
 //Users Page 
-app.get('/users', function(req, res) {
+app.get('/users', async function(req, res) {
     res.render('pages/users');
 });
 
 //Licenses Page 
-app.get('/licenses', function(req, res) {
+app.get('/licenses', async function(req, res) {
     res.render('pages/licenses');
 });
 
 //SupportTickets Page 
-app.get('/supporttickets', function(req, res) {
+app.get('/supporttickets', async function(req, res) {
     res.render('pages/supporttickets');
 });
 
 //Employees Page 
-app.get('/employees', function(req, res) {
+app.get('/employees', async function(req, res) {
     res.render('pages/employees');
 });
 
