@@ -6,7 +6,7 @@ Resources used to create this code:
 - EJS documentation, URL: https://www.npmjs.com/package/ejs
 - Express.js documentation: https://expressjs.com/en/5x/guide/using-template-engines/
 - EJS tutorial: https://www.digitalocean.com/community/tutorials/how-to-use-ejs-to-template-your-node-application
-
+- This StackOverflow page: https://stackoverflow.com/questions/29961711/app-setviews-dirname-views-in-express-node-js
 */
 
 /*
