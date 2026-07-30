@@ -29,12 +29,12 @@ const db = require('./db-connector');
 */
 
 //Home Page 
-app.get('/', async function(req, res) {
+app.get('/', function(req, res) {
     res.render('pages/index');
 });
 
 //Clients Page
-app.get('/', async function(req, res) {
+app.get('/clients', async function(req, res) {
     res.render('pages/clients');
 
     try {
@@ -65,27 +65,27 @@ app.get('/', async function(req, res) {
 });
 
 //Product Page
-app.get('/', async function(req, res) {
+app.get('/products', function(req, res) {
     res.render('pages/products');
 });
 
 //Users Page 
-app.get('/', async function(req, res) {
+app.get('/users', function(req, res) {
     res.render('pages/users');
 });
 
 //Licenses Page 
-app.get('/', async function(req, res) {
+app.get('/licenses', function(req, res) {
     res.render('pages/licenses');
 });
 
 //SupportTickets Page 
-app.get('/', async function(req, res) {
-    res.render('pages/supporttickers');
+app.get('/supporttickets', function(req, res) {
+    res.render('pages/supporttickets');
 });
 
 //Employees Page 
-app.get('/', async function(req, res) {
+app.get('/employees', function(req, res) {
     res.render('pages/employees');
 });
 
