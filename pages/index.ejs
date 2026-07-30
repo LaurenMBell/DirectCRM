@@ -1,0 +1,27 @@
+<!-- This snippet of code originally came from this EJS tutorial by DigitalOcean-->
+<!-- It can be found here: https://www.digitalocean.com/community/tutorials/how-to-use-ejs-to-template-your-node-application-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../views/partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../views/partials/header'); %>
+</header>
+
+<main>
+  <div class="p-5 mb-4 bg-light rounded-3">
+    <h1>This is great</h1>
+    <p>Welcome to templating using EJS</p>
+  </div>
+</main>
+
+<footer>
+  <%- include('../views/partials/footer'); %>
+</footer>
+
+</body>
+</html>
