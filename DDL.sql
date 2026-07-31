@@ -87,9 +87,9 @@ VALUES ("Richard", "Smith", "rsmith", "ajohnson", 95000.00, "richard.smith@hotma
 ("Dave", "Gray", "dgray", "rsmith", 85000.00, "dave.gray@gmail.com");
 
 
-INSERT INTO SupportTickets (TicketID, TicketStatus, 'Description', UserID, EmployeeID)
+INSERT INTO SupportTickets (TicketID, TicketStatus, `Description`, UserID, EmployeeID)
 VALUES ("T00010", "Pending", "Load time for Direct Message was over 3 minutes", "thomas987", "dgray"),
-("T00981", "Completed", "Locked out of DAI acct.", "hansel002", "swilliams")
+("T00981", "Completed", "Locked out of DAI acct.", "hansel002", "swilliams"),
 ("T87102", "Completed", "Can't add new chat in Direct Message", "sasha487", "swilliams")
 
 
