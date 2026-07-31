@@ -89,6 +89,11 @@ app.get('/employees', async function(req, res) {
     res.render('pages/employees');
 });
 
+//User Products Page 
+app.get('/userproducts', async function(req, res) {
+    res.render('pages/userproducts');
+});
+
 /*
     LISTENER
 */
