@@ -54,23 +54,28 @@
       <label for="clientname">Client Name:</label><br>
       <input type="text" id="clientname" name="clientname"><br>
       <label for="clientid">ClientID:</label><br>
-      <input type="text" id="clientid" name="clientid">
+      <input type="text" id="clientid" name="clientid"><br>
       <label for="revenue">Revenue:</label><br>
-      <input type="text" id="revenue" name="revenue">
+      <input type="text" id="revenue" name="revenue"><br>
       
-      <input type="submit" value="Add user"/>
+      <button type="submit">Add new Client</button>
     </form>
   </div>
-  <p></p> 
-  <div>
-    <h3>Remove Client</h3>
-    <label for="clients">Choose a client to remove:</label>
-    <select name="clients" id="clients">
-      <option value="nike">Nike</option>
-      <option value="osu">Oregon State University</option>
-      <option value="flirsystems">FLIR Systems</option>
-    </select>
-  </div>
+
+  <p></p>
+  <form action="/remove-client" method="POST">
+    <div>
+      <h3>Remove Client</h3>
+      <label for="clients">Choose a client to remove:</label>
+      <select name="clients" id="clients">
+        <option value="nike">Nike</option>
+        <option value="osu">Oregon State University</option>
+        <option value="flirsystems">FLIR Systems</option>
+      </select><br>
+      
+      <button type="submit">Remove Client</button>
+    </div>
+  </form>
 </div>
 </main>
 
