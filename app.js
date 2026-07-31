@@ -19,6 +19,7 @@ const app = express();               // We need to instantiate an express object
 const ejs = require('ejs'); //Using EJS templating engine
 app.set("view engine", "ejs");
 app.set("views", __dirname);
+app.use(express.static(__dirname));
 const PORT = 65180;     // Set a port number
 
 // Database 
