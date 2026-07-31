@@ -1,50 +1,135 @@
 /*
 Lauren Bell and Spencer Berg, Group 37
 
-AI Usage: Gemini was used to generate subqueries for selecting all employees 
-who are managers and query for updating a users ticket status
+AI Usage: 
 
-Prompt: "does this get all employees who are managers? SELECT fNameEmp, ManagerID from Employees;
+Gemini was used to generate subqueries for selecting all employees 
+who are managers and query for updating a users ticket status.
+Prompt: "Does this get all employees who are managers? SELECT fNameEmp, ManagerID from Employees;
+
+GitHub Copilot was used to sort written queries to be organized by page. 
+Prompt: "Organize the written queries by page in the UI. Do not change any written queries, 
+just sort them into their respective pages."
 */
 
--- get all users and their ids
-SELECT UserID, fNameUser, lNameUser from Users;
+-- Clients page
+-- SELECT queries --
+SELECT ClientName, Revenue FROM Clients WHERE Revenue > 2000000000;
+SELECT * FROM Clients;
 
--- get all products and their ids
+-- INSERT queries --
+INSERT INTO Clients (ClientID, ClientName, Revenue)
+VALUES (:ClientIDInput, :ClientNameInput, :RevenueInput);
+
+-- DELETE queries --
+DELETE FROM Clients
+WHERE ClientID = :ClientID_selected_from_dropdown_Input;
+
+-- Products page
+-- SELECT queries --
 SELECT * from Products;
 
--- get all clients whose revenue is above 2 billion
-SELECT ClientName, Revenue FROM Clients WHERE Revenue > 2000000000;
+-- DELETE queries --
+DELETE FROM Products
+WHERE ProductID = :ProductID_selected_from_dropdown_Input;
 
--- get all support tickets for a specific employee
-SELECT 
-    TicketID, 
-    TicketStatus, 
-    `Description`
-FROM SupportTickets
-WHERE EmployeeID = @EmployeeID_selected_from_browse_employees_page;
+-- Users page
+-- SELECT queries --
+SELECT UserID, fNameUser, lNameUser from Users;
+SELECT UserID, fNameUser, lNameUser, ClientID FROM Users WHERE UserID = :UserID_selected_from_browse_user_page;
+SELECT * FROM Users;
 
--- get all employees who are managers
+-- INSERT queries --
+INSERT INTO Users (UserID, fNameUser, lNameUser, ClientID, `Password`, SecurityQuestion, SecurityAnswer)
+VALUES (:UserIDInput, :FirstNameInput, :LastNameInput, :ClientIDInput, :PasswordInput, :SecurityQuestionInput, :SecurityAnswerInput);
+
+-- UPDATE queries --
+UPDATE Users
+SET fNameUser = :FirstNameInput,
+    lNameUser = :LastNameInput,
+    ClientID = :ClientIDInput,
+    `Password` = :PasswordInput,
+    SecurityQuestion = :SecurityQuestionInput,
+    SecurityAnswer = :SecurityAnswerInput
+WHERE UserID = :UserID_selected_from_dropdown_Input;
+
+-- DELETE queries --
+DELETE FROM Users
+WHERE UserID = :UserID_selected_from_dropdown_Input;
+
+-- Employees page
+-- SELECT queries --
+SELECT * FROM Employees;
 SELECT fNameEmp, lNameEmp from Employees WHERE EmployeeID IN (SELECT ManagerID from Employees);
 
--- get info about a selected user
-SELECT UserID, fNameUser, lNameUser, ClientID FROM Users WHERE UserID = @UserID_selected_from_browse_user_page;
+-- INSERT queries --
+INSERT INTO Employees (EmployeeID, fNameEmp, lNameEmp, ManagerID, Salary, Email)
+VALUES (:EmployeeIDInput, :FirstNameInput, :LastNameInput, :ManagerIDInput, :SalaryInput, :EmailInput);
 
--- get all users with support tickets
+-- UPDATE queries --
+UPDATE Employees
+SET fNameEmp = :FirstNameInput,
+    lNameEmp = :LastNameInput,
+    ManagerID = :ManagerIDInput,
+    Salary = :SalaryInput,
+    Email = :EmailInput
+WHERE EmployeeID = :EmployeeID_selected_from_dropdown_Input;
+
+-- DELETE queries --
+DELETE FROM Employees
+WHERE EmployeeID = :EmployeeID_selected_from_dropdown_Input;
+
+-- Support Tickets page
+-- SELECT queries --
+SELECT TicketID, TicketStatus, `Description`
+FROM SupportTickets
+WHERE EmployeeID = :EmployeeID_selected_from_browse_employees_page;
 SELECT UserID, TicketStatus, `Description` FROM SupportTickets;
+SELECT * FROM SupportTickets;
 
--- get a user's licenses
-SELECT UserID, LicenseID, Expiration FROM Licenses;
-
--- update the selected user's ticket to resolved
+-- UPDATE queries --
 UPDATE SupportTickets
 SET TicketStatus = 'Resolved'
-WHERE UserID = @UserID_selected_from_browse_user_page;
+WHERE UserID = :UserID_selected_from_browse_user_page;
 
--- many to many for UserProducts
-INSERT INTO UserProducts (UserProductsID, UserID, ProductID) VALUES (@UserProductsIDInput, @UserID_selected_from_dropdown_Input, @ProductID_selected_from_dropdown_Input); 
+-- INSERT queries --
+INSERT INTO SupportTickets (TicketID, TicketStatus, `Description`, UserID, EmployeeID)
+VALUES (:TicketIDInput, :TicketStatusInput, :DescriptionInput, :UserIDInput, :EmployeeIDInput);
 
-UPDATE UserProducts SET UserProductsID = @UserProductsIDInput,  ProductID = @ProductID_from_dropdown_Input WHERE UserID = @UserID_from_the_update_form;
+-- DELETE queries --
+DELETE FROM SupportTickets
+WHERE TicketID = :TicketID_selected_from_dropdown_Input;
 
--- delete a product from a selected user
-DELETE FROM UserProducts WHERE UserID = @UserID_selected_from_dropdown_Input AND ProductID = @ProductID_selected_from_dropdown_Input;
+-- Licenses page
+-- SELECT queries --
+SELECT UserID, LicenseID, Expiration FROM Licenses;
+SELECT * FROM Licenses;
+
+-- INSERT queries --
+INSERT INTO Licenses (LicenseID, ProductID, Expiration, UserID)
+VALUES (:LicenseIDInput, :ProductIDInput, :ExpirationInput, :UserIDInput);
+
+-- UPDATE queries --
+UPDATE Licenses
+SET ProductID = :ProductIDInput,
+    Expiration = :ExpirationInput,
+    UserID = :UserIDInput
+WHERE LicenseID = :LicenseID_selected_from_dropdown_Input;
+
+-- DELETE queries --
+DELETE FROM Licenses
+WHERE LicenseID = :LicenseID_selected_from_dropdown_Input;
+
+-- User Products page (many-to-many)
+-- SELECT queries --
+SELECT * FROM UserProducts;
+
+-- UPDATE queries --
+UPDATE UserProducts SET UserProductsID = :UserProductsIDInput,  ProductID = :ProductID_from_dropdown_Input WHERE UserID = :UserID_from_the_update_form;
+
+-- INSERT queries --
+INSERT INTO UserProducts (UserProductsID, UserID, ProductID) VALUES (:UserProductsIDInput, :UserID_selected_from_dropdown_Input, :ProductID_selected_from_dropdown_Input); 
+
+-- DELETE queries --
+DELETE FROM UserProducts WHERE UserID = :UserID_selected_from_dropdown_Input AND ProductID = :ProductID_selected_from_dropdown_Input;
+

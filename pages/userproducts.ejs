@@ -45,7 +45,54 @@
         <td>dspec</td>
       </tr>
     </table>
-  </div>
+  </div><br>
+
+  <div>
+    <h3>Add new Product for User</h3>
+    <form>
+      <label for="userproductid">UserProduct ID:</label><br>
+      <input type="text" id="userproductid" name="userproductid"><br>
+      <label for="userid">User ID:</label><br>
+      <input type="text" id="userid" name="userid"><br>
+      <label for="productID">ProductID:</label><br>
+      <input type="text" id="productid" name="productid"><br>
+      <button type="submit">Launch</button>
+    </form>
+  </div><br>
+  
+  <form>
+    <div>
+      <h3>Remove UserProduct</h3>
+      <label for="users">Choose a UserProduct to remove:</label>
+      <select name="users" id="users">
+        <option value="UP0001">UP0001</option>
+        <option value="UP8000">UP8000</option>
+        <option value="UP7001">UP7001</option>
+      </select><br>
+      
+      <button type="submit">Remove UserProduct</button>
+    </div>
+  </form><br>
+
+  <form>
+    <div>
+      <h3>Update UserProduct</h3>
+      <label for="users">Choose a UserProduct to update:</label>
+      <select name="users" id="users">
+        <option value="UP0001">UP0001</option>
+        <option value="UP8000">UP8000</option>
+        <option value="UP7001">UP7001</option>
+      </select><br>
+
+      <label for="userid">User ID:</label><br>
+      <input type="text" id="userid" name="userid"><br>
+      <label for="productID">ProductID:</label><br>
+      <input type="text" id="productid" name="productid"><br>
+      <button type="submit">Update UserProduct</button>
+    </div>
+  </form>
+
+
 </div>
 </main>
 
