@@ -43,20 +43,28 @@ app.get('/', function(req, res) {
 app.get('/clients', async function(req, res) {
     try {
         const [rows] = await db.query('SELECT * FROM Clients ORDER BY ClientName');
-        const clients = Array.isArray(rows) ? rows : [];
-        res.render('pages/clients', { clients: clients, error: null });
+        res.render('pages/clients', { clients: rows, error: null });
     } catch (error) {
         console.error("Error executing queries:", error);
         res.status(500).render('pages/clients', {
             clients: [],
-            error: 'Unable to load clients from the database.'
+            error: 'Unable to load clients.'
         });
     }
 });
 
 //Product Page
 app.get('/products', async function(req, res) {
-    res.render('pages/products');
+    try {
+        const [rows] = await db.query('SELECT * FROM Products ORDER BY ProductName');
+        res.render('pages/products', { products: rows, error: null });
+    } catch (error) {
+        console.error("Error executing queries:", error);
+        res.status(500).render('pages/products', {
+            products: [],
+            error: 'Unable to load products.'
+        });
+    }
 });
 
 //Users Page 
