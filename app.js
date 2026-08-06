@@ -2,12 +2,17 @@
 Lauren Bell and Spencer Berg, CS 340 
 
 Resources used to create this code:
+Accessed 7/29 and 7/30
 - Starter code for Node.js on Canvas, Activity 2
 - EJS documentation, URL: https://www.npmjs.com/package/ejs
 - Express.js documentation: https://expressjs.com/en/5x/guide/using-template-engines/
 - EJS tutorial: https://www.digitalocean.com/community/tutorials/how-to-use-ejs-to-template-your-node-application
 - This StackOverflow page: https://stackoverflow.com/questions/29961711/app-setviews-dirname-views-in-express-node-js
+
+Accessed 8/6
+- Helper code from Step 4 Draft Help Section: https://canvas.oregonstate.edu/courses/2051721/assignments/10565924
 */
+
 
 /*
     SETUP
@@ -36,32 +41,16 @@ app.get('/', function(req, res) {
 
 //Clients Page
 app.get('/clients', async function(req, res) {
-    res.render('pages/clients');
-
     try {
-        
-        // Define our queries
-        const query1 = 'DROP TABLE IF EXISTS diagnostic;';
-        const query2 = 'CREATE TABLE diagnostic(id INT PRIMARY KEY AUTO_INCREMENT, text VARCHAR(255) NOT NULL);';
-        const query3 = 'INSERT INTO diagnostic (text) VALUES ("MySQL and Node is working for myONID!");'; // Replace with your ONID
-        const query4 = 'SELECT * FROM diagnostic;';
-        
-        // Execute each query synchronously (await).
-        // We want each query to finish before the next one starts.
-        await db.query(query1);
-        await db.query(query2);
-        await db.query(query3);
-        const [rows] = await db.query(query4); // Store the results
-        
-        // Send the results to the browser
-        const base = "<h1>DirectCRM: A Multi-Use Customer Relationship Management Platform</h1>";
-        res.send(base + JSON.stringify(rows));
-
+        const [rows] = await db.query('SELECT * FROM Clients ORDER BY ClientName');
+        const clients = Array.isArray(rows) ? rows : [];
+        res.render('pages/clients', { clients: clients, error: null });
     } catch (error) {
         console.error("Error executing queries:", error);
-
-        // Send a generic error message to the browser
-        res.status(500).send("An error occurred while executing the database queries.");
+        res.status(500).render('pages/clients', {
+            clients: [],
+            error: 'Unable to load clients from the database.'
+        });
     }
 });
 
@@ -93,6 +82,20 @@ app.get('/employees', async function(req, res) {
 //User Products Page 
 app.get('/userproducts', async function(req, res) {
     res.render('pages/userproducts');
+});
+
+//Reset Demo Page 
+app.get('/resetdemo', async function(req, res) {
+    try {
+        const query1 = 'CALL DeleteHanselGreene();';
+        await db.query(query1);
+        res.render('pages/resetdemo');
+
+    } catch (error) {
+      console.error("Error executing PL/SQL:", error);
+        // Send a generic error message to the browser
+      res.status(500).send("An error occurred while executing the PL/SQL.");
+    }
 });
 
 /*

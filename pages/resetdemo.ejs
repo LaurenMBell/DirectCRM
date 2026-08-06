@@ -1,0 +1,38 @@
+<!-- This snippet of code originally came from this EJS tutorial by DigitalOcean-->
+<!-- It can be found here: https://www.digitalocean.com/community/tutorials/how-to-use-ejs-to-template-your-node-application-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../views/partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../views/partials/header'); %>
+</header>
+
+<main>
+<div class="row">
+  <div class="col-sm-8">
+    <div class="p-5 mb-4 bg-light rounded-3">
+      <h1>Reset Demo</h1>
+      <p></p>
+    </div>
+  </div>
+
+  <div>
+    <button>Delete Hansel Greene to reset demo</button>
+  </div>
+
+    
+</div>
+</main>
+
+<footer>
+  <%- include('../views/partials/footer'); %>
+</footer>
+
+</body>
+</html>

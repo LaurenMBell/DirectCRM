@@ -1,15 +1,17 @@
 /*
 Lauren Bell and Spencer Berg, Group 37
 
-AI Usage: 
+AI Usage (7/29): 
 
-Gemini was used to generate subqueries for selecting all employees 
+Google Gemini was used to generate subqueries for selecting all employees 
 who are managers and query for updating a users ticket status.
-Prompt: "Does this get all employees who are managers? SELECT fNameEmp, ManagerID from Employees;
+Prompt: "Does this get all employees who are managers? SELECT fNameEmp, ManagerID from Employees;"
+URL: https://gemini.google.com/app
 
 GitHub Copilot was used to sort written queries to be organized by page. 
 Prompt: "Organize the written queries by page in the UI. Do not change any written queries, 
 just sort them into their respective pages."
+URL: https://github.com/copilot
 */
 
 -- Clients page
