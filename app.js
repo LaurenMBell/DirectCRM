@@ -158,9 +158,9 @@ app.post('/resetdemo/delete-hansel', async function(req, res) {
 
 app.post('/resetdemo/reset-demo', async function(req, res) {
     try {
-        await db.query('CALL DeleteHanselGreene();');
+        await db.query('CALL DeleteRichardSmith();');
         res.render('pages/resetdemo', {
-            message: 'Hansel Greene was removed from the demo data.'
+            message: 'Richard Smith was removed from the demo data.'
         });
     } catch (error) {
         console.error("Error executing PL/SQL:", error);

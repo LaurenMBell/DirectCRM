@@ -118,5 +118,3 @@ VALUES ("UP0001", "hansel002", "dai"),
 
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
-
-
