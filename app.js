@@ -143,6 +143,8 @@ app.get('/userproducts', async function(req, res) {
     }
 });
 
+
+//Functions providedby GitHub Copilot, citation above
 async function loadSqlFile(fileName) {
     const filePath = path.join(__dirname, fileName);
     return fs.readFileSync(filePath, 'utf8');
@@ -185,7 +187,7 @@ app.post('/resetdemo/reset-demo', async function(req, res) {
         const ddlSql = normalizeSqlText(await loadSqlFile('DDL.sql'));
         await db.query(ddlSql);
         res.render('pages/resetdemo', {
-            message: 'DDL.SQL WAS RAN!!'
+            message: 'Demo reset!'
         });
     } catch (error) {
         console.error("Error executing DDL.SQL:", error);
