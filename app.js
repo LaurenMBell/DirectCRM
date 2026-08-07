@@ -98,7 +98,7 @@ app.get('/licenses', async function(req, res) {
 //SupportTickets Page 
 app.get('/supporttickets', async function(req, res) {
     try {
-        const [rows] = await db.query('SELECT * FROM SupportTickets ORDER BY SupportTicketID');
+        const [rows] = await db.query('SELECT * FROM SupportTickets');
         res.render('pages/supporttickets', { supporttickets: rows, error: null });
     } catch (error) {
         console.error("Error executing queries:", error);
@@ -112,7 +112,7 @@ app.get('/supporttickets', async function(req, res) {
 //Employees Page 
 app.get('/employees', async function(req, res) {
     try {
-        const [rows] = await db.query('SELECT * FROM Employees ORDER BY fNameEmp');
+        const [rows] = await db.query('SELECT * FROM Employees');
         res.render('pages/employees', { employees: rows, error: null });
     } catch (error) {
         console.error("Error executing queries:", error);
