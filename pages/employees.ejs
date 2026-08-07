@@ -41,7 +41,7 @@
             <td><%= employee.lNameEmp %></td>
             <td><%= employee.EmployeeID %></td>
             <td><%= employee.ManagerID %></td>
-            <td><%= employee.Salary %></td>
+            <td>$<%= Number(employee.Salary).toLocaleString() %></td>
             <td><%= employee.Email %></td>
           </tr>
         <% }); %>

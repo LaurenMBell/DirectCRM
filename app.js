@@ -138,16 +138,21 @@ app.get('/userproducts', async function(req, res) {
 });
 
 //Reset Demo Page 
-app.get('/resetdemo', async function(req, res) {
-    try {
-        const query1 = 'CALL DeleteHanselGreene();';
-        await db.query(query1);
-        res.render('pages/resetdemo');
+app.get('/resetdemo', function(req, res) {
+    res.render('pages/resetdemo', { message: null });
+});
 
+app.post('/resetdemo', async function(req, res) {
+    try {
+        await db.query('CALL DeleteHanselGreene();');
+        res.render('pages/resetdemo', {
+            message: 'Hansel Greene was removed from the demo data.'
+        });
     } catch (error) {
-      console.error("Error executing PL/SQL:", error);
-        // Send a generic error message to the browser
-      res.status(500).send("An error occurred while executing the PL/SQL.");
+        console.error("Error executing PL/SQL:", error);
+        res.status(500).render('pages/resetdemo', {
+            message: 'An error occurred while resetting the demo.'
+        });
     }
 });
 

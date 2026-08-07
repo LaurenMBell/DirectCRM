@@ -23,7 +23,16 @@
   </div>
 
   <div>
-    <button>Delete Hansel Greene to reset demo</button>
+    <% if (message) { %>
+      <div class="alert alert-success" role="alert"><%= message %></div>
+    <% } %>
+    <form action="/resetdemo" method="post">
+      <button type="submit">Delete Hansel Greene to reset demo</button>
+    </form>
+  </div>
+
+  <div>
+    <button>Reset Demo</button>
   </div>
 
     
