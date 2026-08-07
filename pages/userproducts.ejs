@@ -24,26 +24,22 @@
 
   <div>
     <table>
-      <tr>
-        <th>User Product ID</th>
-        <th>User ID</th>
-        <th>Product ID</th>
-      </tr>
-      <tr>
-        <td>UP0001</td>
-        <td>hansel02</td>
-        <td>dai</td>
-      </tr>
-      <tr>
-        <td>UP8000</td>
-        <td>trinity919</td>
-        <td>directmessage</td>
-      </tr>
-      <tr>
-        <td>UP7001</td>
-        <td>trinity919</td>
-        <td>dspec</td>
-      </tr>
+      <thead>
+        <tr>
+          <th>User Product ID</th>
+          <th>User ID</th>
+          <th>Product ID</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% userproducts.forEach(function(userproduct) { %>
+          <tr>
+            <td><%= userproduct.UserProductID %></td>
+            <td><%= userproduct.UserID %></td>
+            <td><%= userproduct.ProductID %></td>
+          </tr>
+        <% }); %>
+      </tbody>
     </table>
   </div><br>
 

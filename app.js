@@ -97,17 +97,44 @@ app.get('/licenses', async function(req, res) {
 
 //SupportTickets Page 
 app.get('/supporttickets', async function(req, res) {
-    res.render('pages/supporttickets');
+    try {
+        const [rows] = await db.query('SELECT * FROM SupportTickets ORDER BY SupportTicketID');
+        res.render('pages/supporttickets', { supporttickets: rows, error: null });
+    } catch (error) {
+        console.error("Error executing queries:", error);
+        res.status(500).render('pages/supporttickets', {
+            supporttickets: [],
+            error: 'Unable to load supporttickets.'
+        });
+    }
 });
 
 //Employees Page 
 app.get('/employees', async function(req, res) {
-    res.render('pages/employees');
+    try {
+        const [rows] = await db.query('SELECT * FROM Employees ORDER BY fNameEmp');
+        res.render('pages/employees', { employees: rows, error: null });
+    } catch (error) {
+        console.error("Error executing queries:", error);
+        res.status(500).render('pages/employees', {
+            employees: [],
+            error: 'Unable to load employees.'
+        });
+    }
 });
 
 //User Products Page 
 app.get('/userproducts', async function(req, res) {
-    res.render('pages/userproducts');
+    try {
+        const [rows] = await db.query('SELECT * FROM UserProducts');
+        res.render('pages/userproducts', { userproducts: rows, error: null });
+    } catch (error) {
+        console.error("Error executing queries:", error);
+        res.status(500).render('pages/userproducts', {
+            userproducts: [],
+            error: 'Unable to load userproducts.'
+        });
+    }
 });
 
 //Reset Demo Page 

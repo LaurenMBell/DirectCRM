@@ -24,34 +24,26 @@
 
   <div>
     <table>
-      <tr>
-        <th>Ticket ID</th>
-        <th>Ticket Status</th>
-        <th>Description</th>
-        <th>User ID</th>
-        <th>EmployeeID</th>
-      </tr>
-      <tr>
-        <td>T00010</td>
-        <td>Pending</td>
-        <td>Load time for Direct Message was over 3 minutes</td>
-        <td>thomas987</td>
-        <td>dgray</td>
-      </tr>
-      <tr>
-        <td>T00981</td>
-        <td>Completed</td>
-        <td>Locked out of DAI acct.</td>
-        <td>hansel002</td>
-        <td>swilliams</td>
-      </tr>
-      <tr>
-        <td>T87102</td>
-        <td>Completed</td>
-        <td>Can't add new chat in Direct Message</td>
-        <td>sasha487</td>
-        <td>swilliams</td>
-      </tr>
+      <thead>
+        <tr>
+          <th>Ticket ID</th>
+          <th>Ticket Status</th>
+          <th>Description</th>
+          <th>User ID</th>
+          <th>Employee ID</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% supporttickets.forEach(function(supportticket) { %>
+          <tr>
+            <td><%= supportticket.TicketID %></td>
+            <td><%= supportticket.Status %></td>
+            <td><%= supportticket.Description %></td>
+            <td><%= supportticket.UserID %></td>
+            <td><%= supportticket.EmployeeID %></td>
+          </tr>
+        <% }); %>
+      </tbody>
     </table>
   </div>
 </div><br>
