@@ -142,7 +142,21 @@ app.get('/resetdemo', function(req, res) {
     res.render('pages/resetdemo', { message: null });
 });
 
-app.post('/resetdemo', async function(req, res) {
+app.post('/resetdemo/delete-hansel', async function(req, res) {
+    try {
+        await db.query('CALL DeleteHanselGreene();');
+        res.render('pages/resetdemo', {
+            message: 'Hansel Greene was removed from the demo data.'
+        });
+    } catch (error) {
+        console.error("Error executing PL/SQL:", error);
+        res.status(500).render('pages/resetdemo', {
+            message: 'An error occurred while resetting the demo.'
+        });
+    }
+});
+
+app.post('/resetdemo/reset-demo', async function(req, res) {
     try {
         await db.query('CALL DeleteHanselGreene();');
         res.render('pages/resetdemo', {

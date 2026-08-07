@@ -1,6 +1,5 @@
 -- Lauren Bell and Spencer Berg, Group 37  ---
 
-
 SET FOREIGN_KEY_CHECKS=0;
 SET AUTOCOMMIT = 0;
 

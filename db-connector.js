@@ -8,7 +8,8 @@ const pool = mysql.createPool({
     host              : 'classmysql.engr.oregonstate.edu',
     user              : 'cs340_bellla',
     password          : '2975',
-    database          : 'cs340_bellla'
+    database          : 'cs340_bellla',
+    multipleStatements: true
 }).promise(); // This makes it so we can use async / await rather than callbacks
 
 // Export it for use in our application
