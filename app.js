@@ -69,12 +69,30 @@ app.get('/products', async function(req, res) {
 
 //Users Page 
 app.get('/users', async function(req, res) {
-    res.render('pages/users');
+    try {
+        const [rows] = await db.query('SELECT * FROM Users');
+        res.render('pages/users', { users: rows, error: null });
+    } catch (error) {
+        console.error("Error executing queries:", error);
+        res.status(500).render('pages/users', {
+            users: [],
+            error: 'Unable to load users.'
+        });
+    }
 });
 
 //Licenses Page 
 app.get('/licenses', async function(req, res) {
-    res.render('pages/licenses');
+    try {
+        const [rows] = await db.query('SELECT * FROM Licenses ORDER BY LicenseID');
+        res.render('pages/licenses', { licenses: rows, error: null });
+    } catch (error) {
+        console.error("Error executing queries:", error);
+        res.status(500).render('pages/licenses', {
+            licenses: [],
+            error: 'Unable to load licenses.'
+        });
+    }
 });
 
 //SupportTickets Page 

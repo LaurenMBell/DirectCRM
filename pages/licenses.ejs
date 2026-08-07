@@ -23,31 +23,25 @@
   </div>
 
   <div>
-    <table>
-      <tr>
-        <th>Product ID</th>
-        <th>License ID</th>
-        <th>Expiration</th>
-        <th>User ID</th>
-      </tr>
-      <tr>
-        <td>dai</td>
-        <td>DAI</td>
-        <td>2026-09-01</td>
-        <td>hansel002</td>
-      </tr>
-      <tr>
-        <td>directmessage</td>
-        <td>DirChat Plus</td>
-        <td>2027-01-31</td>
-        <td>trinity919</td>
-      </tr>
-      <tr>
-        <td>dspec</td>
-        <td>Base Analyst</td>
-        <td>2027-01-31</td>
-        <td>jeremy873</td>
-      </tr>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Product ID</th>
+          <th>License ID</th>
+          <th>Expiration</th>
+          <th>User ID</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% licenses.forEach(function(license) { %>
+          <tr>
+            <td><%= license.ProductID %></td>
+            <td><%= license.LicenseID %></td>
+            <td><%= license.Expiration %></td>
+            <td><%= license.UserID %></td>
+          </tr>
+        <% }); %>
+      </tbody>
     </table>
   </div>
 
