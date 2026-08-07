@@ -23,9 +23,13 @@
     </div>
   </div>
 
+  <% if (message) { %>
+    <div class="alert alert-info" role="alert"><%= message %></div>
+  <% } %>
+
   <div>
     <form action="/resetdemo/delete-rsmith" method="post">
-      <button type="submit">Delete Richard Smith to test demo reset</button>
+      <button type="submit">Delete Richard Smith (employee) to test demo reset</button>
     </form>
   </div>
 
