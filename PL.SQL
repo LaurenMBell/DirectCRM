@@ -50,4 +50,23 @@ BEGIN
 END //
 DELIMITER ;
 
+-- InsertUser Procedure
+DROP PROCEDURE IF EXISTS InsertUser;
+
+DELIMITER //
+CREATE PROCEDURE InsertUser (
+    IN p_UserID VARCHAR(50),
+    IN p_fNameUser VARCHAR(50), 
+    IN p_lNameUser VARCHAR(50),
+    IN p_ClientID varchar(50), 
+    IN p_Password varchar(50), 
+    IN p_SecurityQuestion varchar(200), 
+    IN p_SecurityAnswer varchar(50)
+)
+BEGIN
+    INSERT INTO Users (UserID, fNameUser, lNameUser, ClientID, `Password`, SecurityQuestion, SecurityAnswer)
+    VALUES (p_UserID, p_fNameUser, p_lNameUser, p_ClientID, p_Password, p_SecurityQuestion, p_SecurityAnswer);
+END //
+DELIMITER ;
+
 

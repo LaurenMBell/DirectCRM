@@ -73,8 +73,6 @@ app.post('/clients/add-new-client', async function(req, res) {
     await db.query(query, [clientid, clientname, parsedRevenue]);
 
     res.redirect('/clients');
-
-    //console.log("SOMETHING HAPPENED!!")
 });
 
 //Product Page
@@ -98,8 +96,6 @@ app.post('/products/add-new-product', async function(req, res) {
     await db.query(query, [productid, productname]);
 
     res.redirect('/products');
-
-    console.log("SOMETHING HAPPENED!!")
 });
 
 //Users Page 
@@ -114,6 +110,19 @@ app.get('/users', async function(req, res) {
             error: 'Unable to load users.'
         });
     }
+});
+
+app.post('/users/add-new-user', async function(req, res) {
+    const { userid, fname, lname, clientid, password, securityquestion, securityanswer} = req.body;
+
+    //ADD CHECK FOR PREEXISTING CLIENT -- "ADD NEW CLIENT FIRST!"
+
+    const query = 'CALL InsertUser(?, ?, ?, ?, ?, ?, ?);';
+    await db.query(query, [userid, fname, lname, clientid, password, securityquestion, securityanswer]);
+
+    res.redirect('/users');
+
+    console.log("SOMETHING HAPPENEDDDD!!")
 });
 
 //Licenses Page 
