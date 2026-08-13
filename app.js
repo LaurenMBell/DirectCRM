@@ -122,7 +122,6 @@ app.post('/users/add-new-user', async function(req, res) {
 
     res.redirect('/users');
 
-    console.log("SOMETHING HAPPENEDDDD!!")
 });
 
 //Licenses Page 
@@ -137,6 +136,18 @@ app.get('/licenses', async function(req, res) {
             error: 'Unable to load licenses.'
         });
     }
+});
+
+app.post('/licenses/add-new-license', async function(req, res) {
+    const { productid, licenseid, expiration, userid} = req.body;
+
+    //ADD FOREIGN KEY CHECKS
+    
+    const query = 'CALL InsertLicense(?, ?, ?, ?);';
+    await db.query(query, [productid, licenseid, expiration, userid]);
+
+    res.redirect('/licenses');
+
 });
 
 //SupportTickets Page 

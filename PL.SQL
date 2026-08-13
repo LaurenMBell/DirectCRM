@@ -69,4 +69,20 @@ BEGIN
 END //
 DELIMITER ;
 
+-- InsertLicense Procedure
+DROP PROCEDURE IF EXISTS InsertLicense;
+
+DELIMITER //
+CREATE PROCEDURE InsertLicense (
+    IN p_ProductID VARCHAR(50),
+    IN p_LicenseID VARCHAR(50), 
+    IN p_Expiration VARCHAR(50),
+    IN p_UserID varchar(50)
+)
+BEGIN
+    INSERT INTO Licenses (ProductID, LicenseID, Expiration, UserID)
+    VALUES (p_ProductID, p_LicenseID, p_Expiration, p_UserID);
+END //
+DELIMITER ;
+
 
