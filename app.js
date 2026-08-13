@@ -74,7 +74,7 @@ app.post('/clients/add-new-client', async function(req, res) {
 
     res.redirect('/clients');
 
-    console.log("SOMETHING HAPPENED!!")
+    //console.log("SOMETHING HAPPENED!!")
 });
 
 //Product Page
@@ -89,6 +89,17 @@ app.get('/products', async function(req, res) {
             error: 'Unable to load products.'
         });
     }
+});
+
+app.post('/products/add-new-product', async function(req, res) {
+    const { productid, productname } = req.body;
+
+    const query = 'CALL InsertProduct(?, ?);';
+    await db.query(query, [productid, productname]);
+
+    res.redirect('/products');
+
+    console.log("SOMETHING HAPPENED!!")
 });
 
 //Users Page 
