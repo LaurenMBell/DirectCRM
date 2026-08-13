@@ -2,16 +2,19 @@
 Lauren Bell and Spencer Berg, Group 37
 
 AI Usage (7/29): 
+-- Google Gemini was used to generate subqueries for selecting all employees 
+    who are managers and query for updating a users ticket status.
+    Prompt: "Does this get all employees who are managers? SELECT fNameEmp, ManagerID from Employees;"
+    URL: https://gemini.google.com/app
 
-Google Gemini was used to generate subqueries for selecting all employees 
-who are managers and query for updating a users ticket status.
-Prompt: "Does this get all employees who are managers? SELECT fNameEmp, ManagerID from Employees;"
-URL: https://gemini.google.com/app
+-- GitHub Copilot was used to sort written queries to be organized by page.     
+    Prompt: "Organize the written queries by page in the UI. Do not change any written queries, 
+    just sort them into their respective pages."
+    URL: https://github.com/copilot
 
-GitHub Copilot was used to sort written queries to be organized by page. 
-Prompt: "Organize the written queries by page in the UI. Do not change any written queries, 
-just sort them into their respective pages."
-URL: https://github.com/copilot
+
+8/12
+-- Updated page to reflect what is found in UI
 */
 
 -- Clients page
@@ -49,16 +52,6 @@ SELECT * FROM Users;
 INSERT INTO Users (UserID, fNameUser, lNameUser, ClientID, `Password`, SecurityQuestion, SecurityAnswer)
 VALUES (:UserIDInput, :FirstNameInput, :LastNameInput, :ClientIDInput, :PasswordInput, :SecurityQuestionInput, :SecurityAnswerInput);
 
--- UPDATE queries --
-UPDATE Users
-SET fNameUser = :FirstNameInput,
-    lNameUser = :LastNameInput,
-    ClientID = :ClientIDInput,
-    `Password` = :PasswordInput,
-    SecurityQuestion = :SecurityQuestionInput,
-    SecurityAnswer = :SecurityAnswerInput
-WHERE UserID = :UserID_selected_from_dropdown_Input;
-
 -- DELETE queries --
 DELETE FROM Users
 WHERE UserID = :UserID_selected_from_dropdown_Input;
@@ -71,15 +64,6 @@ SELECT fNameEmp, lNameEmp from Employees WHERE EmployeeID IN (SELECT ManagerID f
 -- INSERT queries --
 INSERT INTO Employees (EmployeeID, fNameEmp, lNameEmp, ManagerID, Salary, Email)
 VALUES (:EmployeeIDInput, :FirstNameInput, :LastNameInput, :ManagerIDInput, :SalaryInput, :EmailInput);
-
--- UPDATE queries --
-UPDATE Employees
-SET fNameEmp = :FirstNameInput,
-    lNameEmp = :LastNameInput,
-    ManagerID = :ManagerIDInput,
-    Salary = :SalaryInput,
-    Email = :EmailInput
-WHERE EmployeeID = :EmployeeID_selected_from_dropdown_Input;
 
 -- DELETE queries --
 DELETE FROM Employees
@@ -95,7 +79,7 @@ SELECT * FROM SupportTickets;
 
 -- UPDATE queries --
 UPDATE SupportTickets
-SET TicketStatus = 'Resolved'
+SET TicketStatus = :TicketStatus
 WHERE UserID = :UserID_selected_from_browse_user_page;
 
 -- INSERT queries --
@@ -114,13 +98,6 @@ SELECT * FROM Licenses;
 -- INSERT queries --
 INSERT INTO Licenses (LicenseID, ProductID, Expiration, UserID)
 VALUES (:LicenseIDInput, :ProductIDInput, :ExpirationInput, :UserIDInput);
-
--- UPDATE queries --
-UPDATE Licenses
-SET ProductID = :ProductIDInput,
-    Expiration = :ExpirationInput,
-    UserID = :UserIDInput
-WHERE LicenseID = :LicenseID_selected_from_dropdown_Input;
 
 -- DELETE queries --
 DELETE FROM Licenses

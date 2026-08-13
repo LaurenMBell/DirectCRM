@@ -44,36 +44,35 @@
     </tbody>
   </table>
 
-  <p></p>
-  <div>
-    <h3>Add new Client</h3>
-    <form action="/clients/add-new-client" method="POST">
-      <label for="clientname">Client Name:</label><br>
-      <input type="text" id="clientname" name="clientname" required><br>
-      <label for="clientid">ClientID:</label><br>
-      <input type="text" id="clientid" name="clientid"><br>
+  <div class="flex-container">
+    <div class="column">
+      <h3>Add new Client</h3>
+      <form action="/clients/add-new-client" method="POST">
+        <label for="clientname">Client Name:</label><br>
+        <input type="text" id="clientname" name="clientname" required><br>
+        <label for="clientid">ClientID:</label><br>
+        <input type="text" id="clientid" name="clientid"><br>
 
-      <label for="revenue">Revenue:</label><br>
-      <input type="number" id="revenue" name="revenue" step="0.01"><br><br>
-      
-      <button type="submit">Add new Client</button>
-    </form>
-  </div>
-
-  <p></p>
-  <form>
-    <div>
-      <h3>Remove Client</h3>
-      <label for="clients">Choose a client to remove:</label>
-      <select name="clients" id="clients">
-        <option value="nike">Nike</option>
-        <option value="osu">Oregon State University</option>
-        <option value="flirsystems">FLIR Systems</option>
-      </select><br>
-      
-      <button type="submit">Remove Client</button>
+        <label for="revenue">Revenue:</label><br>
+        <input type="number" id="revenue" name="revenue" step="0.01"><br><br>
+        
+        <button type="submit">Add new Client</button>
+      </form>
     </div>
-  </form>
+    <div class="column">
+      <form>
+        <h3>Remove Client</h3>
+        <label for="clients">Choose a client to remove:</label>
+        <select name="clients" id="clients">
+          <option value="nike">Nike</option>
+          <option value="osu">Oregon State University</option>
+          <option value="flirsystems">FLIR Systems</option>
+        </select><br>
+        
+        <button type="submit">Remove Client</button>
+      </form>
+    </div>
+  </div>
 </div>
 </main>
 

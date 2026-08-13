@@ -136,3 +136,20 @@ BEGIN
 END //
 DELIMITER ;
 
+
+-- UpdateSupportTicketStatus Procedure
+DROP PROCEDURE IF EXISTS UpdateSupportTicketStatus;
+
+DELIMITER //
+CREATE PROCEDURE UpdateSupportTicketStatus (
+    IN p_TicketID,
+    IN p_TicketStatus,
+    IN p_Description,
+    IN p_UserID,
+    IN p_EmployeeID
+)
+BEGIN
+    UPDATE  SupportTickets (TicketID, TicketStatus, `Description`, UserID, EmployeeID)
+    VALUES (p_TicketID, p_TicketStatus, p_Description, p_UserID, p_EmployeeID);
+END //
+DELIMITER ;

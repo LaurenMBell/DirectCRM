@@ -3,42 +3,37 @@ Lauren Bell and Spencer Berg, Group 37
 
 AI Usage (8/6): 
 
-<<<<<<< HEAD
-Google Gemini was used to allocate font code, and ask if I can use comments (haha dumb question).
-=======
 Google Gemini was used to allocate font code, and ask if I can use comments.
->>>>>>> 3f00627177a3655992edc447445c82f101f2759d
 Prompt: "modify this to choose a font"
 Prompt: "modify this for a font that's good for a tech company"
 Prompt: "can I write comments in css?"
 Prompt: "change color of header"
-<<<<<<< HEAD
-Prompt (uploaded users.ejs lol dumb question): "compatible with this?"
-Prompt (another dumb question): "how to set header background color":
-URL: https://gemini.google.com/app
-*/
-=======
 Prompt (uploaded users.ejs): "compatible with this?"
 Prompt: "how to set header background color":
 URL: https://gemini.google.com/app
 */
-
->>>>>>> 3f00627177a3655992edc447445c82f101f2759d
 body {
   padding-top: 50px;
-  background-color: #223243;
-  color: #6495ED;
+  background-color: #f3f5f7;
+  color: #143063;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
-
 
 .navbar-brand {
   font-weight: 600;
 }
 
-
-
 .card {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   border: 1px solid #e5eaf0;
+}
+
+.flex-container {
+  display: flex; 
+  gap: 20px;    
+}
+
+.column {
+  flex: 1;
+  padding: 10px; 
 }

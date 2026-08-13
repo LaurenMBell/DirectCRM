@@ -50,28 +50,26 @@
   </div>
 </div><br>
 
-<div>
-  <h3>Add New Employee</h3>
-  <form action="/employees/add-new-employee" method="POST">
-    <label for="fname">First Name:</label><br>
-    <input type="text" id="fname" name="fname"><br>
-    <label for="lname">Last Name:</label><br>
-    <input type="text" id="lname" name="lname"><br>
-    <label for="employeeid">Employee ID:</label><br>
-    <input type="text" id="employeeid" name="employeeid"><br>
-    <label for="managerid">Manager ID:</label><br>
-    <input type="text" id="managerid" name="managerid"><br>
-    <label for="salary">Salary:</label><br>
-    <input type="int" id="salary" name="salary"><br>
-    <label for="email">Email:</label><br>
-    <input type="text" id="email" name="email"><br>
-    <button type="submit">Add new Employee</button>
-  </form>
-</div><br>
-
-<div>
-  <form>
-    <div>
+<div class="flex-container">
+  <div class="column">
+    <form action="/employees/add-new-employee" method="POST">
+      <label for="fname">First Name:</label><br>
+      <input type="text" id="fname" name="fname"><br>
+      <label for="lname">Last Name:</label><br>
+      <input type="text" id="lname" name="lname"><br>
+      <label for="employeeid">Employee ID:</label><br>
+      <input type="text" id="employeeid" name="employeeid"><br>
+      <label for="managerid">Manager ID:</label><br>
+      <input type="text" id="managerid" name="managerid"><br>
+      <label for="salary">Salary:</label><br>
+      <input type="int" id="salary" name="salary"><br>
+      <label for="email">Email:</label><br>
+      <input type="text" id="email" name="email"><br>
+      <button type="submit">Add new Employee</button>
+    </form>
+  </div>
+  <div class="column">
+    <form>
       <h3>Remove Employee</h3>
       <label for="employees">Choose a employee to remove:</label>
       <select name="employees" id="employees">
@@ -80,10 +78,10 @@
         <option value="swilliams">swilliams</option>
         <option value="dgray">dgray</option>
       </select><br>
-      
+        
       <button type="submit">Remove Employee</button>
-    </div>
-  </form>
+    </form>
+  </div>
 </div>
 </main>
 
