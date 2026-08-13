@@ -47,13 +47,14 @@
   <p></p>
   <div>
     <h3>Add new Client</h3>
-    <form>
+    <form action="/clients/add-new-client" method="POST">
       <label for="clientname">Client Name:</label><br>
-      <input type="text" id="clientname" name="clientname"><br>
+      <input type="text" id="clientname" name="clientname" required><br>
       <label for="clientid">ClientID:</label><br>
       <input type="text" id="clientid" name="clientid"><br>
+
       <label for="revenue">Revenue:</label><br>
-      <input type="text" id="revenue" name="revenue"><br>
+      <input type="number" id="revenue" name="revenue" step="0.01"><br><br>
       
       <button type="submit">Add new Client</button>
     </form>

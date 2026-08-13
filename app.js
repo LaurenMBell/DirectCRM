@@ -4,16 +4,21 @@ Lauren Bell and Spencer Berg, CS 340
 Resources used to create this code:
 Accessed 7/29 and 7/30
 - Starter code for Node.js on Canvas, Activity 2
-- EJS documentation, URL: https://www.npmjs.com/package/ejs
-- Express.js documentation: https://expressjs.com/en/5x/guide/using-template-engines/
-- EJS tutorial: https://www.digitalocean.com/community/tutorials/how-to-use-ejs-to-template-your-node-application
-- This StackOverflow page: https://stackoverflow.com/questions/29961711/app-setviews-dirname-views-in-express-node-js
+- Referenced the EJS documentation: https://www.npmjs.com/package/ejs
+- Referenced the Express.js documentation: https://expressjs.com/en/5x/guide/using-template-engines/
+- Followed the EJS tutorial: https://www.digitalocean.com/community/tutorials/how-to-use-ejs-to-template-your-node-application
+- Referenced this StackOverflow page: https://stackoverflow.com/questions/29961711/app-setviews-dirname-views-in-express-node-js
 
 Accessed 8/6
-- Helper code from Step 4 Draft Help Section: https://canvas.oregonstate.edu/courses/2051721/assignments/10565924
+- Adapted the helper code from Step 4 Draft Help Section: https://canvas.oregonstate.edu/courses/2051721/assignments/10565924
 - GitHub Copilot was used to connect PL.SQL to app (https://github.com/copilot)
     Prompt: This is the error message I'm getting: [error message]. How do I connect PL.SQL and 
-            DDL.SQL to the app? 
+            DML.SQL to the app? 
+
+Accessed 8/12
+- Referenced this Mozilla documentation: https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Sending_and_retrieving_form_data
+- Referenced this Express documentation: https://expressjs.com/en/guide/routing/
+- Referenced this video on Express.js: https://www.youtube.com/watch?v=SccSCuHhOw0
 */
 
 
@@ -57,6 +62,17 @@ app.get('/clients', async function(req, res) {
             error: 'Unable to load clients.'
         });
     }
+});
+
+app.post('/clients/add-new-client', async function(req, res) {
+    const {clientid, clientname, revenue } = req.body;
+
+    const query = 'INSERT INTO Clients (ClientID, ClientName, Revenue) VALUES (?, ?, ?)';
+    await db.query(query, [clientid, clientname, revenue]);
+    
+    // console.log("SOMETHING HAPPENED!!")
+
+    res.redirect('/clients');
 });
 
 //Product Page
@@ -144,21 +160,14 @@ app.get('/userproducts', async function(req, res) {
 });
 
 
-//Functions providedby GitHub Copilot, citation above
+//Functions provided by GitHub Copilot, citation above
 async function loadSqlFile(fileName) {
     const filePath = path.join(__dirname, fileName);
     return fs.readFileSync(filePath, 'utf8');
 }
 
-function normalizeSqlText(sqlText) {
-    return sqlText
-        .replace(/DELIMITER\s+[^\r\n]+/gi, '')
-        .replace(/\/\/\s*$/gm, ';')
-        .trim();
-}
-
 async function createRichardSmithProcedure() {
-    const sql = normalizeSqlText(await loadSqlFile('PL.SQL'));
+    const sql = loadSqlFile('PL.SQL');
     await db.query(sql);
 }
 
