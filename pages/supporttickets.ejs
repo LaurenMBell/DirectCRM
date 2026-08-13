@@ -1,7 +1,12 @@
-<!-- This snippet of code originally came from this EJS tutorial by DigitalOcean-->
-<!-- It can be found here: https://www.digitalocean.com/community/tutorials/how-to-use-ejs-to-template-your-node-application-->
+<!-- This snippet of code originally came from this EJS tutorial by DigitalOcean-->[cite: 7]
+<!-- It can be found here: https://www.digitalocean.com/community/tutorials/how-to-use-ejs-to-template-your-node-application-->[cite: 7]
 
+<!-- AI Usage (8/12): -->
 
+<!-- Google Gemini implemented deleting logic via a conversation.
+Prompt (uploaded the file in a conversation where I previously used DML and DDL): "do the same with this one"
+
+URL: https://gemini.google.com/app -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,8 +22,8 @@
 <div class="row">
   <div class="col-sm-8">
     <div class="p-5 mb-4 bg-light rounded-3">
-      <h1>Support Tickets</h1>
-      <p>Add, update, and delete support tickets</p>
+      <h1>Support Tickets</h1>[cite: 7]
+      <p>Add, update, and delete support tickets</p>[cite: 7]
     </div>
   </div>
 
@@ -50,8 +55,8 @@
 
 
 <div>
-  <h3>Add New Support Ticket</h3>
-  <form>
+  <h3>Add New Support Ticket</h3>[cite: 7]
+  <form action="/supporttickets/add" method="POST">
     <label for="ticketid">TicketID:</label><br>
     <input type="text" id="ticketid" name="ticketid"><br>
     <label for="status">Ticket Status:</label><br>
@@ -67,17 +72,30 @@
 </div><br>
 
 <div>
-  <h3>Update Support Ticket Status</h3>
-  <form>
-    <label for="ticketid">TicketID:</label><br>
-    <input type="text" id="ticketid" name="ticketid"><br>
-    <label for="status">Updated Status:</label><br>
-    <select name="status" id="status">
+  <h3>Update Support Ticket Status</h3>[cite: 7]
+  <form action="/supporttickets/update" method="POST">
+    <label for="ticketid-update">TicketID:</label><br>
+    <input type="text" id="ticketid-update" name="ticketid"><br>
+    <label for="status-update">Updated Status:</label><br>
+    <select name="status" id="status-update">
         <option value="pending">Pending</option>
         <option value="completed">Completed</option>
         <option value="unassigned">Unassigned</option>
       </select><br>
-    <button type="submit">Add new Ticket</button>
+    <button type="submit">Update Ticket Status</button>
+  </form>
+</div><br>
+
+<div>
+  <h3>Remove Support Ticket</h3>
+  <form action="/supporttickets/delete" method="POST">
+    <label for="remove-ticketid">Choose a ticket to remove:</label><br>
+    <select name="ticketid" id="remove-ticketid">
+      <% supporttickets.forEach(function(supportticket) { %>
+        <option value="<%= supportticket.TicketID %>">Ticket ID: <%= supportticket.TicketID %> (User: <%= supportticket.UserID %>)</option>
+      <% }); %>
+    </select><br>
+    <button type="submit">Remove Ticket</button>
   </form>
 </div>
 </main>

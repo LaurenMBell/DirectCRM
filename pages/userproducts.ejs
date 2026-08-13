@@ -1,6 +1,14 @@
-<!-- This snippet of code originally came from this EJS tutorial by DigitalOcean-->
-<!-- It can be found here: https://www.digitalocean.com/community/tutorials/how-to-use-ejs-to-template-your-node-application-->
+<!-- This snippet of code originally came from this EJS tutorial by DigitalOcean-->[cite: 8]
+<!-- It can be found here: https://www.digitalocean.com/community/tutorials/how-to-use-ejs-to-template-your-node-application-->[cite: 8]
 
+
+<!-- AI Usage (8/12): -->
+
+<!-- Google Gemini implemented deleting and updating logic.
+Prompt (uploaded the file along with DML, PL, and DDL): "Do the same for this one. The files have been reattached since this one is supposted to be more technical. 
+Same format that has been established by my precedent."
+
+URL: https://gemini.google.com/app -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,8 +25,8 @@
 <div class="row">
   <div class="col-sm-8">
     <div class="p-5 mb-4 bg-light rounded-3">
-      <h1>User Products</h1>
-      <p>Add, update, and delete user products</p>
+      <h1>User Products</h1>[cite: 8]
+      <p>Add, update, and delete user products</p>[cite: 8]
     </div>
   </div>
 
@@ -44,49 +52,49 @@
   </div><br>
 
   <div>
-    <h3>Add new Product for User</h3>
-    <form>
+    <h3>Add new Product for User</h3>[cite: 8]
+    <form action="/userproducts/add" method="POST">
       <label for="userproductid">UserProduct ID:</label><br>
       <input type="text" id="userproductid" name="userproductid"><br>
       <label for="userid">User ID:</label><br>
       <input type="text" id="userid" name="userid"><br>
-      <label for="productID">ProductID:</label><br>
+      <label for="productid">ProductID:</label><br>
       <input type="text" id="productid" name="productid"><br>
       <button type="submit">Submit</button>
     </form>
   </div><br>
   
-  <form>
-    <div>
-      <h3>Remove UserProduct</h3>
-      <label for="users">Choose a UserProduct to remove:</label>
-      <select name="users" id="users">
-        <option value="UP0001">UP0001</option>
-        <option value="UP8000">UP8000</option>
-        <option value="UP7001">UP7001</option>
+  <div>
+    <h3>Remove UserProduct</h3>[cite: 8]
+    <form action="/userproducts/delete" method="POST">
+      <label for="remove-userproductid">Choose a UserProduct to remove:</label><br>
+      <select name="userproductid" id="remove-userproductid">
+        <% userproducts.forEach(function(userproduct) { %>
+          <option value="<%= userproduct.UserProductsID %>"><%= userproduct.UserProductsID %> (User: <%= userproduct.UserID %>, Product: <%= userproduct.ProductID %>)</option>
+        <% }); %>
       </select><br>
       
       <button type="submit">Remove UserProduct</button>
-    </div>
-  </form><br>
+    </form>
+  </div><br>
 
-  <form>
-    <div>
-      <h3>Update UserProduct</h3>
-      <label for="users">Choose a UserProduct to update:</label>
-      <select name="users" id="users">
-        <option value="UP0001">UP0001</option>
-        <option value="UP8000">UP8000</option>
-        <option value="UP7001">UP7001</option>
+  <div>
+    <h3>Update UserProduct</h3>[cite: 8]
+    <form action="/userproducts/update" method="POST">
+      <label for="update-userid">Choose a User ID to update:</label><br>
+      <select name="userid" id="update-userid">
+        <% userproducts.forEach(function(userproduct) { %>
+          <option value="<%= userproduct.UserID %>">User: <%= userproduct.UserID %> (Current Product: <%= userproduct.ProductID %>)</option>
+        <% }); %>
       </select><br>
 
-      <label for="userid">User ID:</label><br>
-      <input type="text" id="userid" name="userid"><br>
-      <label for="productID">ProductID:</label><br>
-      <input type="text" id="productid" name="productid"><br>
+      <label for="userproductid-update">UserProduct ID:</label><br>
+      <input type="text" id="userproductid-update" name="userproductid"><br>
+      <label for="productid-update">ProductID:</label><br>
+      <input type="text" id="productid-update" name="productid"><br>
       <button type="submit">Update UserProduct</button>
-    </div>
-  </form>
+    </form>
+  </div>
 
 
 </div>
@@ -98,3 +106,4 @@
 
 </body>
 </html>
+```[cite: 8]

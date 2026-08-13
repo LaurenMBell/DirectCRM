@@ -1,7 +1,13 @@
-<!-- This snippet of code originally came from this EJS tutorial by DigitalOcean-->
-<!-- It can be found here: https://www.digitalocean.com/community/tutorials/how-to-use-ejs-to-template-your-node-application-->
+<!-- This snippet of code originally came from this EJS tutorial by DigitalOcean-->[cite: 6]
+<!-- It can be found here: https://www.digitalocean.com/community/tutorials/how-to-use-ejs-to-template-your-node-application-->[cite: 6]
 
+<!-- AI Usage (8/12): -->
 
+<!-- Google Gemini implemented deleting logic from a conversation I used for other files.
+Prompt (uploaded the file in a conversation where I previously used DML and DDL): "add a delete section and make sure this complies with DDL and DML I uploaded earlier. 
+Then return all the code including comments.""
+
+URL: https://gemini.google.com/app -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,8 +23,8 @@
 <div class="row">
   <div class="col-sm-8">
     <div class="p-5 mb-4 bg-light rounded-3">
-      <h1>Products</h1>
-      <p>View, launch, and discontinue DirectCRM products</p>
+      <h1>Products</h1>[cite: 6]
+      <p>View, launch, and discontinue DirectCRM products</p>[cite: 6]
     </div>
   </div>
 
@@ -42,8 +48,8 @@
   </div><br>
   
   <div>
-    <h3>Launch New Product</h3>
-    <form>
+    <h3>Launch New Product</h3>[cite: 6]
+    <form action="/products/add" method="POST">
       <label for="productname">Product Name:</label><br>
       <input type="text" id="productname" name="productname"><br>
       <label for="productID">ProductID:</label><br>
@@ -53,12 +59,14 @@
   </div><br>
   
   <div>
-    <h3>Discontinue Product</h3>
-    <form>
-      <label for="productname">Product Name:</label><br>
-      <input type="text" id="productname" name="productname"><br>
-      <label for="productID">ProductID:</label><br>
-      <input type="text" id="productid" name="productid"><br>
+    <h3>Discontinue Product</h3>[cite: 6]
+    <form action="/products/delete" method="POST">
+      <label for="discontinue-productid">Choose a product to discontinue:</label><br>
+      <select name="productid" id="discontinue-productid">
+        <% products.forEach(function(product) { %>
+          <option value="<%= product.ProductID %>"><%= product.ProductName %> (<%= product.ProductID %>)</option>
+        <% }); %>
+      </select><br>
       <button type="submit">Discontinue</button>
     </form>
   </div>

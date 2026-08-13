@@ -1,7 +1,13 @@
-<!-- This snippet of code originally came from this EJS tutorial by DigitalOcean-->
-<!-- It can be found here: https://www.digitalocean.com/community/tutorials/how-to-use-ejs-to-template-your-node-application-->
+<!-- This snippet of code originally came from this EJS tutorial by DigitalOcean-->[cite: 2]
+<!-- It can be found here: https://www.digitalocean.com/community/tutorials/how-to-use-ejs-to-template-your-node-application-->[cite: 2]
 
+<!-- AI Usage (8/12): -->
 
+<!-- Google Gemini was used to allocate the deleting logic for this page.
+Prompt (uploaded the file along with DML and DDL): "add a delete section to the code and retain all the rest of the code including 
+comments. Then return entire code."
+
+URL: https://gemini.google.com/app -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,8 +23,8 @@
 <div class="row">
   <div class="col-sm-8">
     <div class="p-5 mb-4 bg-light rounded-3">
-      <h1>Employees</h1>
-      <p>Add, update, and delete employees</p>
+      <h1>Employees</h1>[cite: 2]
+      <p>Add, update, and delete employees</p>[cite: 2]
     </div>
   </div>
 
@@ -52,7 +58,7 @@
 
 <div>
   <h3>Add New Employee</h3>
-  <form></form>
+  <form action="/employees/add" method="POST">
     <label for="fname">First Name:</label><br>
     <input type="text" id="fname" name="fname"><br>
     <label for="lname">Last Name:</label><br>
@@ -62,7 +68,7 @@
     <label for="managerid">Manager ID:</label><br>
     <input type="text" id="managerid" name="managerid"><br>
     <label for="salary">Salary:</label><br>
-    <input type="int" id="salary" name="salary"><br>
+    <input type="number" id="salary" name="salary"><br>
     <label for="email">Email:</label><br>
     <input type="text" id="email" name="email"><br>
     <button type="submit">Add new Employee</button>
@@ -70,15 +76,14 @@
 </div><br>
 
 <div>
-  <form>
+  <form action="/employees/delete" method="POST">
     <div>
       <h3>Remove Employee</h3>
-      <label for="employees">Choose a employee to remove:</label>
-      <select name="employees" id="employees">
-        <option value="rsmith">rsmith</option>
-        <option value="ajohnson">ajohnson</option>
-        <option value="swilliams">swilliams</option>
-        <option value="dgray">dgray</option>
+      <label for="employees-select">Choose an employee to remove:</label>
+      <select name="employeeid" id="employees-select">
+        <% employees.forEach(function(employee) { %>
+          <option value="<%= employee.EmployeeID %>"><%= employee.fNameEmp %> <%= employee.lNameEmp %> (<%= employee.EmployeeID %>)</option>
+        <% }); %>
       </select><br>
       
       <button type="submit">Remove Employee</button>

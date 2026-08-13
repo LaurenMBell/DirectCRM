@@ -1,7 +1,12 @@
-<!-- This snippet of code originally came from this EJS tutorial by DigitalOcean-->
-<!-- It can be found here: https://www.digitalocean.com/community/tutorials/how-to-use-ejs-to-template-your-node-application-->
+<!-- This snippet of code originally came from this EJS tutorial by DigitalOcean-->[cite: 12]
+<!-- It can be found here: https://www.digitalocean.com/community/tutorials/how-to-use-ejs-to-template-your-node-application-->[cite: 12]
 
+<!-- AI Usage (8/12): -->
 
+<!-- Google Gemini implemented deleting and updating logic.
+Prompt (uploaded the file in a conversation where it knew my precedent): "lastly add logic to delete a user"
+
+URL: https://gemini.google.com/app -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,8 +22,8 @@
 <div class="row">
   <div class="col-sm-8">
     <div class="p-5 mb-4 bg-light rounded-3">
-      <h1>Users</h1>
-      <p>Add, update, and delete users</p>
+      <h1>Users</h1>[cite: 12]
+      <p>Add, update, and delete users</p>[cite: 12]
     </div>
   </div>
 
@@ -53,8 +58,8 @@
 </div>
 
 <div>
-  <h3>Add New User</h3>
-  <form>
+  <h3>Add New User</h3>[cite: 12]
+  <form action="/users/add" method="POST">
     <label for="userid">User ID:</label><br>
     <input type="text" id="userid" name="userid"><br>
     <label for="fname">First Name:</label><br>
@@ -76,16 +81,14 @@
 </div>
 
 <div>
-  <form>
+  <h3>Remove User</h3>[cite: 12]
+  <form action="/users/delete" method="POST">
     <div>
-      <h3>Remove User</h3>
-      <label for="users">Choose a user to remove:</label>
-      <select name="users" id="users">
-        <option value="hansel002">hansel002</option>
-        <option value="trinity919">trinity919</option>
-        <option value="jeremy873">jeremy873</option>
-        <option value="thomas987">thomas987</option>
-        <option value="sasha487">sasha487</option>
+      <label for="remove-userid">Choose a user to remove:</label><br>
+      <select name="userid" id="remove-userid">
+        <% users.forEach(function(user) { %>
+          <option value="<%= user.UserID %>"><%= user.fNameUser %> <%= user.lNameUser %> (<%= user.UserID %>)</option>
+        <% }); %>
       </select><br>
       
       <button type="submit">Remove User</button>
@@ -100,3 +103,4 @@
 
 </body>
 </html>
+```[cite: 12]
