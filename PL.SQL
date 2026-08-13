@@ -138,18 +138,39 @@ DELIMITER ;
 
 
 -- UpdateSupportTicketStatus Procedure
-DROP PROCEDURE IF EXISTS UpdateSupportTicketStatus;
+DROP PROCEDURE IF EXISTS UpdateSupportTicket;
 
 DELIMITER //
-CREATE PROCEDURE UpdateSupportTicketStatus (
-    IN p_TicketID,
-    IN p_TicketStatus,
-    IN p_Description,
-    IN p_UserID,
-    IN p_EmployeeID
+CREATE PROCEDURE UpdateSupportTicket (
+    IN p_TicketID VARCHAR(50),
+    IN p_TicketStatus VARCHAR(15),
+    IN p_Description VARCHAR(500),
+    IN p_UserID VARCHAR(50),
+    IN p_EmployeeID VARCHAR(50)
 )
 BEGIN
-    UPDATE  SupportTickets (TicketID, TicketStatus, `Description`, UserID, EmployeeID)
-    VALUES (p_TicketID, p_TicketStatus, p_Description, p_UserID, p_EmployeeID);
+    UPDATE SupportTickets
+    SET TicketStatus = p_TicketStatus,
+        `Description` = p_Description,
+        UserID = p_UserID,
+        EmployeeID = p_EmployeeID
+    WHERE TicketID = p_TicketID;
+END //
+DELIMITER ;
+
+-- UpdateUserProduct Procedure
+DROP PROCEDURE IF EXISTS UpdateUserProduct;
+
+DELIMITER //
+CREATE PROCEDURE UpdateUserProduct (
+    IN p_UserProductsID VARCHAR(50),
+    IN p_UserID VARCHAR(50),
+    IN p_ProductID VARCHAR(50)
+)
+BEGIN
+    UPDATE UserProducts
+    SET UserID = p_UserID,
+        ProductID = p_ProductID
+    WHERE UserProductsID = p_UserProductsID;
 END //
 DELIMITER ;

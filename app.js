@@ -176,6 +176,18 @@ app.post('/supporttickets/add-new-supportticket', async function(req, res) {
 
 });
 
+app.post('/supporttickets/update-supportticket', async function(req, res) {
+    const { ticketid, status, description, userid, employeeid} = req.body;
+
+    //ADD FOREIGN KEY CHECKS
+    
+    const query = 'CALL UpdateSupportTicket(?, ?, ?, ?, ?);';
+    await db.query(query, [ticketid, status, description, userid, employeeid]);
+
+    res.redirect('/supporttickets');
+
+});
+
 //Employees Page 
 app.get('/employees', async function(req, res) {
     try {
@@ -223,6 +235,18 @@ app.post('/userproducts/add-new-userproduct', async function(req, res) {
     
     const query = 'CALL InsertUserProduct(?, ?, ?);';
     await db.query(query, [userproductid, userid, productid]);
+
+    res.redirect('/userproducts');
+
+});
+
+app.post('/userproducts/update-userproduct', async function(req, res) {
+    const { userproductid, userid, productid } = req.body;
+
+    //ADD FOREIGN KEY CHECKS
+    
+    const query = 'CALL UpdateUserProduct(?, ?, ?);';
+    await db.query(query, [userproductid, userid, productid ]);
 
     res.redirect('/userproducts');
 

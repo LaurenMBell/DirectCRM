@@ -67,7 +67,7 @@
   </div>
   <div class="column">
     <h3>Update Support Ticket Status</h3>
-    <form>
+    <form action="/supporttickets/update-supportticket" method="POST">
       <label for="ticketid">TicketID:</label><br>
       <input type="text" id="ticketid" name="ticketid"><br>
       <label for="status">Updated Status:</label><br>
@@ -76,7 +76,13 @@
           <option value="completed">Completed</option>
           <option value="unassigned">Unassigned</option>
         </select><br>
-      <button type="submit">Add new Ticket</button>
+      <label for="description">Description</label><br>
+      <input type="text" id="description" name="description"><br>
+      <label for="userid">UserID</label><br>
+      <input type="text" id="userid" name="userid"><br>
+      <label for="employeeid">EmployeeID:</label><br>
+      <input type="text" id="employeeid" name="employeeid"><br>
+      <button type="submit">Update Ticket</button>
     </form>
   </div>
 </div>
