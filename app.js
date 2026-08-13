@@ -11,6 +11,9 @@ Accessed 7/29 and 7/30
 
 Accessed 8/6
 - Helper code from Step 4 Draft Help Section: https://canvas.oregonstate.edu/courses/2051721/assignments/10565924
+- GitHub Copilot was used to connect PL.SQL to app (https://github.com/copilot)
+    Prompt: This is the error message I'm getting: [error message]. How do I connect PL.SQL and 
+            DDL.SQL to the app? 
 */
 
 
@@ -22,9 +25,12 @@ Accessed 8/6
 const express = require('express');  // We are using the express library for the web server
 const app = express();               // We need to instantiate an express object to interact with the server in our code
 const ejs = require('ejs'); //Using EJS templating engine
+const fs = require('fs'); 
+const path = require('path');
 app.set("view engine", "ejs");
 app.set("views", __dirname);
 app.use(express.static(__dirname));
+app.use(express.urlencoded({ extended: true }));
 const PORT = 65180;     // Set a port number
 
 // Database 
@@ -137,35 +143,56 @@ app.get('/userproducts', async function(req, res) {
     }
 });
 
+
+//Functions providedby GitHub Copilot, citation above
+async function loadSqlFile(fileName) {
+    const filePath = path.join(__dirname, fileName);
+    return fs.readFileSync(filePath, 'utf8');
+}
+
+function normalizeSqlText(sqlText) {
+    return sqlText
+        .replace(/DELIMITER\s+[^\r\n]+/gi, '')
+        .replace(/\/\/\s*$/gm, ';')
+        .trim();
+}
+
+async function createRichardSmithProcedure() {
+    const sql = normalizeSqlText(await loadSqlFile('PL.SQL'));
+    await db.query(sql);
+}
+
 //Reset Demo Page 
 app.get('/resetdemo', function(req, res) {
     res.render('pages/resetdemo', { message: null });
 });
 
-app.post('/resetdemo/delete-hansel', async function(req, res) {
+app.post('/resetdemo/delete-rsmith', async function(req, res) {
     try {
-        await db.query('CALL DeleteHanselGreene();');
+        await createRichardSmithProcedure();
+        await db.query('CALL DeleteRichardSmith();');
         res.render('pages/resetdemo', {
-            message: 'Hansel Greene was removed from the demo data.'
+            message: 'Richard Smith was removed from the demo data.'
         });
     } catch (error) {
         console.error("Error executing PL/SQL:", error);
         res.status(500).render('pages/resetdemo', {
-            message: 'An error occurred while resetting the demo.'
+            message: 'An error occurred while resetting the demo: ' + error.message
         });
     }
 });
 
 app.post('/resetdemo/reset-demo', async function(req, res) {
     try {
-        await db.query('CALL DeleteHanselGreene();');
+        const ddlSql = normalizeSqlText(await loadSqlFile('DDL.sql'));
+        await db.query(ddlSql);
         res.render('pages/resetdemo', {
-            message: 'Hansel Greene was removed from the demo data.'
+            message: 'Demo reset!'
         });
     } catch (error) {
-        console.error("Error executing PL/SQL:", error);
+        console.error("Error executing DDL.SQL:", error);
         res.status(500).render('pages/resetdemo', {
-            message: 'An error occurred while resetting the demo.'
+            message: 'An error occurred while resetting the demo: ' + error.message
         });
     }
 });

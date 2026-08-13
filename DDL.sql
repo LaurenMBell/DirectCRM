@@ -3,6 +3,14 @@
 SET FOREIGN_KEY_CHECKS=0;
 SET AUTOCOMMIT = 0;
 
+DROP TABLE IF EXISTS UserProducts;
+DROP TABLE IF EXISTS Licenses;
+DROP TABLE IF EXISTS SupportTickets;
+DROP TABLE IF EXISTS Employees;
+DROP TABLE IF EXISTS Users;
+DROP TABLE IF EXISTS Clients;
+DROP TABLE IF EXISTS Products;
+
 CREATE OR REPLACE TABLE Products(
    ProductID varchar(50) UNIQUE NOT NULL,
    ProductName varchar(50) NOT NULL,
@@ -60,8 +68,8 @@ CREATE OR REPLACE TABLE Employees (
 );
 
 INSERT INTO Employees (fNameEmp, lNameEmp, EmployeeID, ManagerID, Salary, Email)
-VALUES ("Richard", "Smith", "rsmith", "ajohnson", 95000.00, "richard.smith@hotmail.com"),
-("Amy", "Johnson", "ajohnson", NULL, 150000.00, "amy.johnson6@gmail.com"),
+VALUES ("Amy", "Johnson", "ajohnson", NULL, 150000.00, "amy.johnson6@gmail.com"),
+("Richard", "Smith", "rsmith", "ajohnson", 95000.00, "richard.smith@hotmail.com"),
 ("Shawna", "Williams", "swilliams", "ajohnson", 90000.00, "shawna.williams@gmail.com"),
 ("Dave", "Gray", "dgray", "rsmith", 85000.00, "dave.gray@gmail.com");
 
@@ -118,5 +126,3 @@ VALUES ("UP0001", "hansel002", "dai"),
 
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
-
-

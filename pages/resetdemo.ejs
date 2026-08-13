@@ -1,6 +1,7 @@
 <!-- This snippet of code originally came from this EJS tutorial by DigitalOcean-->
 <!-- It can be found here: https://www.digitalocean.com/community/tutorials/how-to-use-ejs-to-template-your-node-application-->
 
+<!-- (8/6) These W3 Schools Docs: https://www.w3schools.com/tags/tag_button.asp -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,9 +23,13 @@
     </div>
   </div>
 
+  <% if (message) { %>
+    <div class="alert alert-info" role="alert"><%= message %></div>
+  <% } %>
+
   <div>
-    <form action="/resetdemo/delete-hansel" method="post">
-      <button type="submit">Delete Hansel Greene to test demo reset</button>
+    <form action="/resetdemo/delete-rsmith" method="post">
+      <button type="submit">Delete Richard Smith (employee) to test demo reset</button>
     </form>
   </div>
 
