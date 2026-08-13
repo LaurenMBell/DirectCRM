@@ -216,6 +216,17 @@ app.get('/userproducts', async function(req, res) {
     }
 });
 
+app.post('/userproducts/add-new-userproduct', async function(req, res) {
+    const {userproductid, userid, productid} = req.body;
+
+    //ADD FOREIGN KEY CHECKS
+    
+    const query = 'CALL InsertUserProduct(?, ?, ?);';
+    await db.query(query, [userproductid, userid, productid]);
+
+    res.redirect('/userproducts');
+
+});
 
 //Functions provided by GitHub Copilot, citation above
 async function loadSqlFile(fileName) {

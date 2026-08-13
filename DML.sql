@@ -131,11 +131,16 @@ WHERE LicenseID = :LicenseID_selected_from_dropdown_Input;
 SELECT * FROM UserProducts;
 
 -- UPDATE queries --
-UPDATE UserProducts SET UserProductsID = :UserProductsIDInput,  ProductID = :ProductID_from_dropdown_Input WHERE UserID = :UserID_from_the_update_form;
+UPDATE UserProducts 
+SET UserProductsID = :UserProductsIDInput,  ProductID = :ProductID_from_dropdown_Input 
+WHERE UserID = :UserID_from_the_update_form;
 
 -- INSERT queries --
-INSERT INTO UserProducts (UserProductsID, UserID, ProductID) VALUES (:UserProductsIDInput, :UserID_selected_from_dropdown_Input, :ProductID_selected_from_dropdown_Input); 
+INSERT INTO UserProducts (UserProductsID, UserID, ProductID) 
+VALUES (:UserProductsIDInput, :UserID_selected_from_dropdown_Input, :ProductID_selected_from_dropdown_Input); 
 
 -- DELETE queries --
-DELETE FROM UserProducts WHERE UserID = :UserID_selected_from_dropdown_Input AND ProductID = :ProductID_selected_from_dropdown_Input;
+DELETE FROM UserProducts 
+WHERE UserID = :UserID_selected_from_dropdown_Input 
+AND ProductID = :ProductID_selected_from_dropdown_Input;
 

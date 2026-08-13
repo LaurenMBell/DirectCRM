@@ -126,16 +126,13 @@ DROP PROCEDURE IF EXISTS InsertUserProduct;
 
 DELIMITER //
 CREATE PROCEDURE InsertUserProduct (
-    IN p_fNameEmp VARCHAR(50),
-    IN p_lNameEmp VARCHAR(50), 
-    IN p_EmployeeID VARCHAR(50),
-    IN p_ManagerID varchar(50), 
-    IN p_Salary decimal(10,2),
-    IN p_Email varchar(30)
+    IN p_UserProductID VARCHAR(50),
+    IN p_UserID VARCHAR(50), 
+    IN p_ProductID VARCHAR(50)
 )
 BEGIN
-    INSERT INTO UserProducts (fNameEmp, lNameEmp, EmployeeID, ManagerID, Salary, Email)
-    VALUES (p_fNameEmp, p_lNameEmp, p_EmployeeID, p_ManagerID, p_Salary, p_Email);
+    INSERT INTO UserProducts (UserProductsID, UserID, ProductID)
+    VALUES (p_UserProductID, p_UserID, p_ProductID);
 END //
 DELIMITER ;
 
