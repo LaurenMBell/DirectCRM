@@ -15,10 +15,11 @@ Accessed 8/6
     Prompt: This is the error message I'm getting: [error message]. How do I connect PL.SQL and 
             DML.SQL to the app? 
 
-Accessed 8/12
+Accessed 8/12 and 8/13
 - Referenced this Mozilla documentation: https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Sending_and_retrieving_form_data
 - Referenced this Express documentation: https://expressjs.com/en/guide/routing/
 - Referenced this video on Express.js: https://www.youtube.com/watch?v=SccSCuHhOw0
+- Referenced this StackOverflow page: https://stackoverflow.com/questions/22276763/use-nodejs-to-run-an-sql-file-in-mysql
 */
 
 
@@ -252,22 +253,24 @@ app.post('/userproducts/update-userproduct', async function(req, res) {
 
 });
 
-//Functions provided by GitHub Copilot, citation above
+// Functions provided by GitHub Copilot, citation above for Step 4
 async function loadSqlFile(fileName) {
     const filePath = path.join(__dirname, fileName);
     return fs.readFileSync(filePath, 'utf8');
 }
 
+/* For Step 4
 async function createRichardSmithProcedure() {
     const sql = loadSqlFile('PL.SQL');
     await db.query(sql);
-}
+} */
 
 //Reset Demo Page 
 app.get('/resetdemo', function(req, res) {
     res.render('pages/resetdemo', { message: null });
 });
 
+/* USED FOR STEP 4 
 app.post('/resetdemo/delete-rsmith', async function(req, res) {
     try {
         await createRichardSmithProcedure();
@@ -281,11 +284,11 @@ app.post('/resetdemo/delete-rsmith', async function(req, res) {
             message: 'An error occurred while resetting the demo: ' + error.message
         });
     }
-});
+}); */
 
 app.post('/resetdemo/reset-demo', async function(req, res) {
     try {
-        const ddlSql = normalizeSqlText(await loadSqlFile('DDL.sql'));
+        const ddlSql = await loadSqlFile('DDL.sql');
         await db.query(ddlSql);
         res.render('pages/resetdemo', {
             message: 'Demo reset!'
