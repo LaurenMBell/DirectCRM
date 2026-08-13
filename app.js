@@ -164,6 +164,18 @@ app.get('/supporttickets', async function(req, res) {
     }
 });
 
+app.post('/supporttickets/add-new-supportticket', async function(req, res) {
+    const { ticketid, status, description, userid, employeeid} = req.body;
+
+    //ADD FOREIGN KEY CHECKS
+    
+    const query = 'CALL InsertSupportTicket(?, ?, ?, ?, ?);';
+    await db.query(query, [ticketid, status, description, userid, employeeid]);
+
+    res.redirect('/supporttickets');
+
+});
+
 //Employees Page 
 app.get('/employees', async function(req, res) {
     try {

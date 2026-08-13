@@ -85,4 +85,21 @@ BEGIN
 END //
 DELIMITER ;
 
+-- InsertSupportTicket Procedure
+DROP PROCEDURE IF EXISTS InsertSupportTicket;
+
+DELIMITER //
+CREATE PROCEDURE InsertSupportTicket (
+    IN p_TicketID VARCHAR(50),
+    IN p_TicketStatus VARCHAR(15), 
+    IN p_Description VARCHAR(500),
+    IN p_UserID varchar(50), 
+    IN p_EmployeeID varchar(50)
+)
+BEGIN
+    INSERT INTO SupportTickets (TicketID, TicketStatus, `Description`, UserID, EmployeeID)
+    VALUES (p_TicketID, p_TicketStatus, p_Description, p_UserID, p_EmployeeID);
+END //
+DELIMITER ;
+
 
