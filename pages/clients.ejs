@@ -4,6 +4,14 @@
 <!--Other Sources used: -->
 <!-- (8/6) Mozilla Docs https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString -->
 <!-- (8/6) This StackOverflow post: https://stackoverflow.com/questions/69920051/how-do-i-iterate-through-object-in-order-to-display-the-values-on-ejs-->
+<!-- AI Usage (8/12): -->
+
+<!-- Google Gemini was used to allocate the deleting logic for this page.
+Prompt (uploaded the file): "Modify the sql on this page so it can do the actions that are implied but not already programmed"
+Prompt: "modify this for a font that's good for a tech company"
+Prompt: "generate entire file with changes"
+Prompt: "can you also re add the original comments?"
+URL: https://gemini.google.com/app -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -44,35 +52,55 @@
     </tbody>
   </table>
 
-  <p></p>
+  <hr>
+
+  <!-- Add New Client -->
   <div>
     <h3>Add new Client</h3>
-    <form>
+    <form action="/clients/add" method="POST">
       <label for="clientname">Client Name:</label><br>
-      <input type="text" id="clientname" name="clientname"><br>
+      <input type="text" id="clientname" name="clientname" required><br>
       <label for="clientid">ClientID:</label><br>
-      <input type="text" id="clientid" name="clientid"><br>
+      <input type="text" id="clientid" name="clientid" required><br>
       <label for="revenue">Revenue:</label><br>
-      <input type="text" id="revenue" name="revenue"><br>
-      
-      <button type="submit">Add new Client</button>
+      <input type="number" id="revenue" name="revenue" required><br>
+      <button type="submit" class="btn btn-primary mt-2">Add new Client</button>
     </form>
   </div>
 
-  <p></p>
-  <form>
-    <div>
-      <h3>Remove Client</h3>
-      <label for="clients">Choose a client to remove:</label>
-      <select name="clients" id="clients">
-        <option value="nike">Nike</option>
-        <option value="osu">Oregon State University</option>
-        <option value="flirsystems">FLIR Systems</option>
+  <hr>
+
+  <!-- Update Client -->
+  <div>
+    <h3>Update Client Revenue</h3>
+    <form action="/clients/update" method="POST">
+      <label for="update-clientid">Select Client to Update:</label><br>
+      <select name="clientid" id="update-clientid" required>
+        <% clients.forEach(function(client) { %>
+          <option value="<%= client.ClientID %>"><%= client.ClientName %></option>
+        <% }); %>
       </select><br>
-      
-      <button type="submit">Remove Client</button>
-    </div>
-  </form>
+      <label for="new-revenue">New Revenue:</label><br>
+      <input type="number" id="new-revenue" name="revenue" required><br>
+      <button type="submit" class="btn btn-secondary mt-2">Update Revenue</button>
+    </form>
+  </div>
+
+  <hr>
+
+  <!-- Remove Client -->
+  <div>
+    <h3>Remove Client</h3>
+    <form action="/clients/delete" method="POST">
+      <label for="remove-clientid">Choose a client to remove:</label><br>
+      <select name="clientid" id="remove-clientid" required>
+        <% clients.forEach(function(client) { %>
+          <option value="<%= client.ClientID %>"><%= client.ClientName %></option>
+        <% }); %>
+      </select><br>
+      <button type="submit" class="btn btn-danger mt-2">Remove Client</button>
+    </form>
+  </div>
 </div>
 </main>
 
