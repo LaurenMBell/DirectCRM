@@ -102,4 +102,40 @@ BEGIN
 END //
 DELIMITER ;
 
+-- InsertEmployee Procedure
+DROP PROCEDURE IF EXISTS InsertEmployee;
+
+DELIMITER //
+CREATE PROCEDURE InsertEmployee (
+    IN p_fNameEmp VARCHAR(50),
+    IN p_lNameEmp VARCHAR(50), 
+    IN p_EmployeeID VARCHAR(50),
+    IN p_ManagerID varchar(50), 
+    IN p_Salary decimal(10,2),
+    IN p_Email varchar(30)
+)
+BEGIN
+    INSERT INTO Employees (fNameEmp, lNameEmp, EmployeeID, ManagerID, Salary, Email)
+    VALUES (p_fNameEmp, p_lNameEmp, p_EmployeeID, p_ManagerID, p_Salary, p_Email);
+END //
+DELIMITER ;
+
+
+-- InsertUserProducts Procedure
+DROP PROCEDURE IF EXISTS InsertUserProduct;
+
+DELIMITER //
+CREATE PROCEDURE InsertUserProduct (
+    IN p_fNameEmp VARCHAR(50),
+    IN p_lNameEmp VARCHAR(50), 
+    IN p_EmployeeID VARCHAR(50),
+    IN p_ManagerID varchar(50), 
+    IN p_Salary decimal(10,2),
+    IN p_Email varchar(30)
+)
+BEGIN
+    INSERT INTO UserProducts (fNameEmp, lNameEmp, EmployeeID, ManagerID, Salary, Email)
+    VALUES (p_fNameEmp, p_lNameEmp, p_EmployeeID, p_ManagerID, p_Salary, p_Email);
+END //
+DELIMITER ;
 

@@ -190,6 +190,18 @@ app.get('/employees', async function(req, res) {
     }
 });
 
+app.post('/employees/add-new-employee', async function(req, res) {
+    const {fname, lname, employeeid, managerid, salary, email} = req.body;
+
+    //ADD FOREIGN KEY CHECKS
+    
+    const query = 'CALL InsertEmployee(?, ?, ?, ?, ?, ?);';
+    await db.query(query, [fname, lname, employeeid, managerid, salary, email ]);
+
+    res.redirect('/employees');
+
+});
+
 //User Products Page 
 app.get('/userproducts', async function(req, res) {
     try {
