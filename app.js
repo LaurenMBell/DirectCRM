@@ -65,14 +65,16 @@ app.get('/clients', async function(req, res) {
 });
 
 app.post('/clients/add-new-client', async function(req, res) {
-    const {clientid, clientname, revenue } = req.body;
+    const { clientid, clientname, revenue } = req.body;
 
-    const query = 'INSERT INTO Clients (ClientID, ClientName, Revenue) VALUES (?, ?, ?)';
-    await db.query(query, [clientid, clientname, revenue]);
-    
-    // console.log("SOMETHING HAPPENED!!")
+    const parsedRevenue = revenue ? parseFloat(revenue) : 0;
+
+    const query = 'CALL InsertClient(?, ?, ?);';
+    await db.query(query, [clientid, clientname, parsedRevenue]);
 
     res.redirect('/clients');
+
+    console.log("SOMETHING HAPPENED!!")
 });
 
 //Product Page

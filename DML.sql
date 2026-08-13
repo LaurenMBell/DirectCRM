@@ -35,6 +35,9 @@ SELECT * from Products;
 DELETE FROM Products
 WHERE ProductID = :ProductID_selected_from_dropdown_Input;
 
+-- INSERT queries --
+INSERT INTO Products (Product, Client)
+
 -- Users page
 -- SELECT queries --
 SELECT UserID, fNameUser, lNameUser from Users;
