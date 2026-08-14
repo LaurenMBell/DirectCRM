@@ -1,6 +1,14 @@
 <!-- This snippet of code originally came from this EJS tutorial by DigitalOcean-->
 <!-- It can be found here: https://www.digitalocean.com/community/tutorials/how-to-use-ejs-to-template-your-node-application-->
 
+<!--AI Usage-->
+<!-- Google Gemini was used to call the deleting procedure. -->
+<!-- Sorry I'm going to re use this citation for userproducts and supporttickets. -->>
+<!-- Prompt (asked about other omitted files in same conversation as clients and pasted): --> 
+<!-- "what about userproducts and supporttickets?" --> 
+<!-- Prompt: "add logic to the userproducts ejs and support tickets ejs so there is an option to remove the respective items." -->
+<!-- URL: https://gemini.google.com/app -->
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -78,6 +86,22 @@
         <input type="text" id="productid" name="productid" required><br><br>
 
         <button type="submit">Update UserProduct</button>
+      </form>
+    </div>
+
+    <div class="column">
+      <form action="/userproducts/delete-userproduct" method="POST">
+        <h3>Remove UserProduct</h3>
+        <label for="userproductid_del">Choose a UserProduct to remove:</label><br>
+        <select name="userproductid" id="userproductid_del" required>
+          <option value="">Select a UserProduct ID</option>
+          <% userproducts.forEach(function(up) { %>
+            <option value="<%= up.UserProductsID %>">
+              ID: <%= up.UserProductsID %> (User: <%= up.UserID %>, Product: <%= up.ProductID %>)
+            </option>
+          <% }); %>
+        </select><br><br>
+        <button type="submit">Remove UserProduct</button>
       </form>
     </div>
   </div>

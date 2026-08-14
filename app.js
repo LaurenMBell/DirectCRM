@@ -1,46 +1,54 @@
 /*
-Lauren Bell and Spencer Berg, CS 340 
+Lauren Bell and Spencer Berg, CS 340[cite: 11]
 
 Resources used to create this code:
 Accessed 7/29 and 7/30
-- Starter code for Node.js on Canvas, Activity 2
-- Referenced the EJS documentation: https://www.npmjs.com/package/ejs
-- Referenced the Express.js documentation: https://expressjs.com/en/5x/guide/using-template-engines/
-- Followed the EJS tutorial: https://www.digitalocean.com/community/tutorials/how-to-use-ejs-to-template-your-node-application
-- Referenced this StackOverflow page: https://stackoverflow.com/questions/29961711/app-setviews-dirname-views-in-express-node-js
+- Starter code for Node.js on Canvas, Activity 2[cite: 11]
+- Referenced the EJS documentation: https://www.npmjs.com/package/ejs[cite: 11]
+- Referenced the Express.js documentation: https://expressjs.com/en/5x/guide/using-template-engines/[cite: 11]
+- Followed the EJS tutorial: https://www.digitalocean.com/community/tutorials/how-to-use-ejs-to-template-your-node-application[cite: 11]
+- Referenced this StackOverflow page: https://stackoverflow.com/questions/29961711/app-setviews-dirname-views-in-express-node-js[cite: 11]
 
 Accessed 8/6
-- Adapted the helper code from Step 4 Draft Help Section: https://canvas.oregonstate.edu/courses/2051721/assignments/10565924
-- GitHub Copilot was used to connect PL.SQL to app (https://github.com/copilot)
+- Adapted the helper code from Step 4 Draft Help Section: https://canvas.oregonstate.edu/courses/2051721/assignments/10565924[cite: 11]
+- GitHub Copilot was used to connect PL.SQL to app (https://github.com/copilot)[cite: 11]
     Prompt: This is the error message I'm getting: [error message]. How do I connect PL.SQL and 
-            DML.SQL to the app? 
+            DML.SQL to the app?[cite: 11]
 
 Accessed 8/12 and 8/13
-- Referenced this Mozilla documentation: https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Sending_and_retrieving_form_data
-- Referenced this Express documentation: https://expressjs.com/en/guide/routing/
-- Referenced this video on Express.js: https://www.youtube.com/watch?v=SccSCuHhOw0
-- Referenced this StackOverflow page: https://stackoverflow.com/questions/22276763/use-nodejs-to-run-an-sql-file-in-mysql
+- Referenced this Mozilla documentation: https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Sending_and_retrieving_form_data[cite: 11]
+- Referenced this Express documentation: https://expressjs.com/en/guide/routing/[cite: 11]
+- Referenced this video on Express.js: https://www.youtube.com/watch?v=SccSCuHhOw0[cite: 11]
+- Referenced this StackOverflow page: https://stackoverflow.com/questions/22276763/use-nodejs-to-run-an-sql-file-in-mysql[cite: 11]
 */
 
+/*
+    Accessed 8/13
+    AI Usage:
+    Used Google Gemini to route deleting procedures.
+    Prompt: "add routes to this"
+    Prompt(in conversation after I generated procedures): "connect the procedures to app.js and generate entire code (make sure port number isnt altered)"
+    Link: https://gemini.google.com/app
+*/
 
 /*
     SETUP
 */
 
 // Express
-const express = require('express');  // We are using the express library for the web server
-const app = express();               // We need to instantiate an express object to interact with the server in our code
-const ejs = require('ejs'); //Using EJS templating engine
-const fs = require('fs'); 
-const path = require('path');
-app.set("view engine", "ejs");
-app.set("views", __dirname);
-app.use(express.static(__dirname));
-app.use(express.urlencoded({ extended: true }));
-const PORT = 65180;     // Set a port number
+const express = require('express');  // We are using the express library for the web server[cite: 11]
+const app = express();               // We need to instantiate an express object to interact with the server in our code[cite: 11]
+const ejs = require('ejs'); //Using EJS templating engine[cite: 11]
+const fs = require('fs'); //[cite: 11]
+const path = require('path'); //[cite: 11]
+app.set("view engine", "ejs");//[cite: 11]
+app.set("views", __dirname);//[cite: 11]
+app.use(express.static(__dirname));//[cite: 11]
+app.use(express.urlencoded({ extended: true }));//[cite: 11]
+const PORT = 65204;     // Set a port number[cite: 11]
 
 // Database 
-const db = require('./db-connector');
+const db = require('./db-connector'); //[cite: 11]
 
 /*
     ROUTES
@@ -76,6 +84,15 @@ app.post('/clients/add-new-client', async function(req, res) {
     res.redirect('/clients');
 });
 
+app.post('/clients/delete-client', async function(req, res) {
+    const { clients } = req.body;
+
+    const query = 'CALL DeleteClient(?);';
+    await db.query(query, [clients]);
+
+    res.redirect('/clients');
+});
+
 //Product Page
 app.get('/products', async function(req, res) {
     try {
@@ -99,6 +116,15 @@ app.post('/products/add-new-product', async function(req, res) {
     res.redirect('/products');
 });
 
+app.post('/products/delete-product', async function(req, res) {
+    const { productid } = req.body;
+
+    const query = 'CALL DeleteProduct(?);';
+    await db.query(query, [productid]);
+
+    res.redirect('/products');
+});
+
 //Users Page 
 app.get('/users', async function(req, res) {
     try {
@@ -116,13 +142,19 @@ app.get('/users', async function(req, res) {
 app.post('/users/add-new-user', async function(req, res) {
     const { userid, fname, lname, clientid, password, securityquestion, securityanswer} = req.body;
 
-    //ADD CHECK FOR PREEXISTING CLIENT -- "ADD NEW CLIENT FIRST!"
-
     const query = 'CALL InsertUser(?, ?, ?, ?, ?, ?, ?);';
     await db.query(query, [userid, fname, lname, clientid, password, securityquestion, securityanswer]);
 
     res.redirect('/users');
+});
 
+app.post('/users/delete-user', async function(req, res) {
+    const { userid } = req.body;
+
+    const query = 'CALL DeleteUser(?);';
+    await db.query(query, [userid]);
+
+    res.redirect('/users');
 });
 
 //Licenses Page 
@@ -141,14 +173,20 @@ app.get('/licenses', async function(req, res) {
 
 app.post('/licenses/add-new-license', async function(req, res) {
     const { productid, licenseid, expiration, userid} = req.body;
-
-    //ADD FOREIGN KEY CHECKS
     
     const query = 'CALL InsertLicense(?, ?, ?, ?);';
     await db.query(query, [productid, licenseid, expiration, userid]);
 
     res.redirect('/licenses');
+});
 
+app.post('/licenses/delete-license', async function(req, res) {
+    const { licenseid } = req.body;
+
+    const query = 'CALL DeleteLicense(?);';
+    await db.query(query, [licenseid]);
+
+    res.redirect('/licenses');
 });
 
 //SupportTickets Page 
@@ -167,26 +205,29 @@ app.get('/supporttickets', async function(req, res) {
 
 app.post('/supporttickets/add-new-supportticket', async function(req, res) {
     const { ticketid, status, description, userid, employeeid} = req.body;
-
-    //ADD FOREIGN KEY CHECKS
     
     const query = 'CALL InsertSupportTicket(?, ?, ?, ?, ?);';
     await db.query(query, [ticketid, status, description, userid, employeeid]);
 
     res.redirect('/supporttickets');
-
 });
 
 app.post('/supporttickets/update-supportticket', async function(req, res) {
     const { ticketid, status, description, userid, employeeid} = req.body;
-
-    //ADD FOREIGN KEY CHECKS
     
     const query = 'CALL UpdateSupportTicket(?, ?, ?, ?, ?);';
     await db.query(query, [ticketid, status, description, userid, employeeid]);
 
     res.redirect('/supporttickets');
+});
 
+app.post('/supporttickets/delete-supportticket', async function(req, res) {
+    const { ticketid } = req.body;
+
+    const query = 'CALL DeleteSupportTicket(?);';
+    await db.query(query, [ticketid]);
+
+    res.redirect('/supporttickets');
 });
 
 //Employees Page 
@@ -205,14 +246,20 @@ app.get('/employees', async function(req, res) {
 
 app.post('/employees/add-new-employee', async function(req, res) {
     const {fname, lname, employeeid, managerid, salary, email} = req.body;
-
-    //ADD FOREIGN KEY CHECKS
     
     const query = 'CALL InsertEmployee(?, ?, ?, ?, ?, ?);';
     await db.query(query, [fname, lname, employeeid, managerid, salary, email ]);
 
     res.redirect('/employees');
+});
 
+app.post('/employees/delete-employee', async function(req, res) {
+    const { employeeid } = req.body;
+
+    const query = 'CALL DeleteEmployee(?);';
+    await db.query(query, [employeeid]);
+
+    res.redirect('/employees');
 });
 
 //User Products Page 
@@ -231,60 +278,41 @@ app.get('/userproducts', async function(req, res) {
 
 app.post('/userproducts/add-new-userproduct', async function(req, res) {
     const {userproductid, userid, productid} = req.body;
-
-    //ADD FOREIGN KEY CHECKS
     
     const query = 'CALL InsertUserProduct(?, ?, ?);';
     await db.query(query, [userproductid, userid, productid]);
 
     res.redirect('/userproducts');
-
 });
 
 app.post('/userproducts/update-userproduct', async function(req, res) {
     const { userproductid, userid, productid } = req.body;
-
-    //ADD FOREIGN KEY CHECKS
     
     const query = 'CALL UpdateUserProduct(?, ?, ?);';
     await db.query(query, [userproductid, userid, productid ]);
 
     res.redirect('/userproducts');
-
 });
 
-// Functions provided by GitHub Copilot, citation above for Step 4
+app.post('/userproducts/delete-userproduct', async function(req, res) {
+    const { userproductid } = req.body;
+
+    const query = 'CALL DeleteUserProduct(?);';
+    await db.query(query, [userproductid]);
+
+    res.redirect('/userproducts');
+});
+
+// Functions provided by GitHub Copilot, citation above for Step 4[cite: 11]
 async function loadSqlFile(fileName) {
     const filePath = path.join(__dirname, fileName);
     return fs.readFileSync(filePath, 'utf8');
 }
 
-/* For Step 4
-async function createRichardSmithProcedure() {
-    const sql = loadSqlFile('PL.SQL');
-    await db.query(sql);
-} */
-
 //Reset Demo Page 
 app.get('/resetdemo', function(req, res) {
     res.render('pages/resetdemo', { message: null });
 });
-
-/* USED FOR STEP 4 
-app.post('/resetdemo/delete-rsmith', async function(req, res) {
-    try {
-        await createRichardSmithProcedure();
-        await db.query('CALL DeleteRichardSmith();');
-        res.render('pages/resetdemo', {
-            message: 'Richard Smith was removed from the demo data.'
-        });
-    } catch (error) {
-        console.error("Error executing PL/SQL:", error);
-        res.status(500).render('pages/resetdemo', {
-            message: 'An error occurred while resetting the demo: ' + error.message
-        });
-    }
-}); */
 
 app.post('/resetdemo/reset-demo', async function(req, res) {
     try {
@@ -305,6 +333,6 @@ app.post('/resetdemo/reset-demo', async function(req, res) {
     LISTENER
 */
 
-app.listen(PORT, function(){            // This is the basic syntax for what is called the 'listener' which receives incoming requests on the specified PORT.
+app.listen(PORT, function(){            // This is the basic syntax for what is called the 'listener' which receives incoming requests on the specified PORT.[cite: 11]
     console.log('Express started on http://localhost:' + PORT + '; press Ctrl-C to terminate.')
 });
