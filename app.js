@@ -27,6 +27,7 @@ Accessed 8/12 and 8/13
     AI Usage:
     Used Google Gemini to route deleting procedures.
     Prompt: "add routes to this"
+    Prompt(in conversation after I generated procedures): "connect the procedures to app.js and generate entire code (make sure port number isnt altered)"
     Link: https://gemini.google.com/app
 */
 
@@ -39,15 +40,15 @@ const express = require('express');  // We are using the express library for the
 const app = express();               // We need to instantiate an express object to interact with the server in our code[cite: 11]
 const ejs = require('ejs'); //Using EJS templating engine[cite: 11]
 const fs = require('fs'); //[cite: 11]
-const path = require('path'); // [cite: 11]
-app.set("view engine", "ejs");// [cite: 11]
-app.set("views", __dirname);// [cite: 11]
-app.use(express.static(__dirname));// [cite: 11]
-app.use(express.urlencoded({ extended: true }));// [cite: 11]
+const path = require('path'); //[cite: 11]
+app.set("view engine", "ejs");//[cite: 11]
+app.set("views", __dirname);//[cite: 11]
+app.use(express.static(__dirname));//[cite: 11]
+app.use(express.urlencoded({ extended: true }));//[cite: 11]
 const PORT = 65204;     // Set a port number[cite: 11]
 
 // Database 
-const db = require('./db-connector'); // [cite: 11]
+const db = require('./db-connector'); //[cite: 11]
 
 /*
     ROUTES
@@ -86,7 +87,7 @@ app.post('/clients/add-new-client', async function(req, res) {
 app.post('/clients/delete-client', async function(req, res) {
     const { clients } = req.body;
 
-    const query = 'DELETE FROM Clients WHERE ClientID = ?;';
+    const query = 'CALL DeleteClient(?);';
     await db.query(query, [clients]);
 
     res.redirect('/clients');
@@ -118,7 +119,7 @@ app.post('/products/add-new-product', async function(req, res) {
 app.post('/products/delete-product', async function(req, res) {
     const { productid } = req.body;
 
-    const query = 'DELETE FROM Products WHERE ProductID = ?;';
+    const query = 'CALL DeleteProduct(?);';
     await db.query(query, [productid]);
 
     res.redirect('/products');
@@ -141,19 +142,16 @@ app.get('/users', async function(req, res) {
 app.post('/users/add-new-user', async function(req, res) {
     const { userid, fname, lname, clientid, password, securityquestion, securityanswer} = req.body;
 
-    //ADD CHECK FOR PREEXISTING CLIENT -- "ADD NEW CLIENT FIRST!"
-
     const query = 'CALL InsertUser(?, ?, ?, ?, ?, ?, ?);';
     await db.query(query, [userid, fname, lname, clientid, password, securityquestion, securityanswer]);
 
     res.redirect('/users');
-
 });
 
 app.post('/users/delete-user', async function(req, res) {
     const { userid } = req.body;
 
-    const query = 'DELETE FROM Users WHERE UserID = ?;';
+    const query = 'CALL DeleteUser(?);';
     await db.query(query, [userid]);
 
     res.redirect('/users');
@@ -175,20 +173,17 @@ app.get('/licenses', async function(req, res) {
 
 app.post('/licenses/add-new-license', async function(req, res) {
     const { productid, licenseid, expiration, userid} = req.body;
-
-    //ADD FOREIGN KEY CHECKS
     
     const query = 'CALL InsertLicense(?, ?, ?, ?);';
     await db.query(query, [productid, licenseid, expiration, userid]);
 
     res.redirect('/licenses');
-
 });
 
 app.post('/licenses/delete-license', async function(req, res) {
     const { licenseid } = req.body;
 
-    const query = 'DELETE FROM Licenses WHERE LicenseID = ?;';
+    const query = 'CALL DeleteLicense(?);';
     await db.query(query, [licenseid]);
 
     res.redirect('/licenses');
@@ -210,26 +205,29 @@ app.get('/supporttickets', async function(req, res) {
 
 app.post('/supporttickets/add-new-supportticket', async function(req, res) {
     const { ticketid, status, description, userid, employeeid} = req.body;
-
-    //ADD FOREIGN KEY CHECKS
     
     const query = 'CALL InsertSupportTicket(?, ?, ?, ?, ?);';
     await db.query(query, [ticketid, status, description, userid, employeeid]);
 
     res.redirect('/supporttickets');
-
 });
 
 app.post('/supporttickets/update-supportticket', async function(req, res) {
     const { ticketid, status, description, userid, employeeid} = req.body;
-
-    //ADD FOREIGN KEY CHECKS
     
     const query = 'CALL UpdateSupportTicket(?, ?, ?, ?, ?);';
     await db.query(query, [ticketid, status, description, userid, employeeid]);
 
     res.redirect('/supporttickets');
+});
 
+app.post('/supporttickets/delete-supportticket', async function(req, res) {
+    const { ticketid } = req.body;
+
+    const query = 'CALL DeleteSupportTicket(?);';
+    await db.query(query, [ticketid]);
+
+    res.redirect('/supporttickets');
 });
 
 //Employees Page 
@@ -248,20 +246,17 @@ app.get('/employees', async function(req, res) {
 
 app.post('/employees/add-new-employee', async function(req, res) {
     const {fname, lname, employeeid, managerid, salary, email} = req.body;
-
-    //ADD FOREIGN KEY CHECKS
     
     const query = 'CALL InsertEmployee(?, ?, ?, ?, ?, ?);';
     await db.query(query, [fname, lname, employeeid, managerid, salary, email ]);
 
     res.redirect('/employees');
-
 });
 
 app.post('/employees/delete-employee', async function(req, res) {
     const { employeeid } = req.body;
 
-    const query = 'DELETE FROM Employees WHERE EmployeeID = ?;';
+    const query = 'CALL DeleteEmployee(?);';
     await db.query(query, [employeeid]);
 
     res.redirect('/employees');
@@ -283,26 +278,29 @@ app.get('/userproducts', async function(req, res) {
 
 app.post('/userproducts/add-new-userproduct', async function(req, res) {
     const {userproductid, userid, productid} = req.body;
-
-    //ADD FOREIGN KEY CHECKS
     
     const query = 'CALL InsertUserProduct(?, ?, ?);';
     await db.query(query, [userproductid, userid, productid]);
 
     res.redirect('/userproducts');
-
 });
 
 app.post('/userproducts/update-userproduct', async function(req, res) {
     const { userproductid, userid, productid } = req.body;
-
-    //ADD FOREIGN KEY CHECKS
     
     const query = 'CALL UpdateUserProduct(?, ?, ?);';
     await db.query(query, [userproductid, userid, productid ]);
 
     res.redirect('/userproducts');
+});
 
+app.post('/userproducts/delete-userproduct', async function(req, res) {
+    const { userproductid } = req.body;
+
+    const query = 'CALL DeleteUserProduct(?);';
+    await db.query(query, [userproductid]);
+
+    res.redirect('/userproducts');
 });
 
 // Functions provided by GitHub Copilot, citation above for Step 4[cite: 11]
@@ -311,32 +309,10 @@ async function loadSqlFile(fileName) {
     return fs.readFileSync(filePath, 'utf8');
 }
 
-/* For Step 4
-async function createRichardSmithProcedure() {
-    const sql = loadSqlFile('PL.SQL');
-    await db.query(sql);
-} */
-
 //Reset Demo Page 
 app.get('/resetdemo', function(req, res) {
     res.render('pages/resetdemo', { message: null });
 });
-
-/* USED FOR STEP 4 
-app.post('/resetdemo/delete-rsmith', async function(req, res) {
-    try {
-        await createRichardSmithProcedure();
-        await db.query('CALL DeleteRichardSmith();');
-        res.render('pages/resetdemo', {
-            message: 'Richard Smith was removed from the demo data.'
-        });
-    } catch (error) {
-        console.error("Error executing PL/SQL:", error);
-        res.status(500).render('pages/resetdemo', {
-            message: 'An error occurred while resetting the demo: ' + error.message
-        });
-    }
-}); */
 
 app.post('/resetdemo/reset-demo', async function(req, res) {
     try {
