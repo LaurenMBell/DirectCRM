@@ -1,5 +1,7 @@
 -- Lauren Bell and Spencer Berg, Group 37  ---
 
+-- This code was written by Lauren Bell, without AI 
+
 SET FOREIGN_KEY_CHECKS=0;
 SET AUTOCOMMIT = 0;
 

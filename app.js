@@ -303,12 +303,6 @@ app.post('/userproducts/delete-userproduct', async function(req, res) {
     res.redirect('/userproducts');
 });
 
-// Functions provided by GitHub Copilot, citation above for Step 4[cite: 11]
-async function loadSqlFile(fileName) {
-    const filePath = path.join(__dirname, fileName);
-    return fs.readFileSync(filePath, 'utf8');
-}
-
 //Reset Demo Page 
 app.get('/resetdemo', function(req, res) {
     res.render('pages/resetdemo', { message: null });
@@ -316,13 +310,16 @@ app.get('/resetdemo', function(req, res) {
 
 app.post('/resetdemo/reset-demo', async function(req, res) {
     try {
-        const ddlSql = await loadSqlFile('DDL.sql');
-        await db.query(ddlSql);
+        const { } = req.body;
+
+        const query = 'CALL ResetDB();';
+        await db.query(query, []);
+
         res.render('pages/resetdemo', {
             message: 'Demo reset!'
         });
+
     } catch (error) {
-        console.error("Error executing DDL.SQL:", error);
         res.status(500).render('pages/resetdemo', {
             message: 'An error occurred while resetting the demo: ' + error.message
         });
