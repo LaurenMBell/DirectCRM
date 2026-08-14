@@ -45,7 +45,7 @@ app.set("view engine", "ejs");//[cite: 11]
 app.set("views", __dirname);//[cite: 11]
 app.use(express.static(__dirname));//[cite: 11]
 app.use(express.urlencoded({ extended: true }));//[cite: 11]
-const PORT = 65204;     // Set a port number[cite: 11]
+const PORT = 65180;     // Set a port number[cite: 11]
 
 // Database 
 const db = require('./db-connector'); //[cite: 11]
