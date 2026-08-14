@@ -1,6 +1,12 @@
 <!-- This snippet of code originally came from this EJS tutorial by DigitalOcean-->
 <!-- It can be found here: https://www.digitalocean.com/community/tutorials/how-to-use-ejs-to-template-your-node-application-->
 
+<!--AI Usage-->
+<!-- Google Gemini was used to call the deleting procedure. -->
+<!-- Sorry I'm going to re use this citation several times because I uploaded multiple ejs files in the same prompt. -->>
+<!-- Prompt (uploaded other entity files and PL.SQL in same conversation as clients and pasted): --> 
+<!-- "Do the same for the rest of these" --> 
+<!-- URL: https://gemini.google.com/app -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -76,16 +82,14 @@
     </form>
   </div>
   <div class="column">
-    <form>
+    <form action="/users/delete-user" method="POST">
       <h3>Remove User</h3>
       <label for="users">Choose a user to remove:</label>
-      <select name="users" id="users">
-        <option value="hansel002">hansel002</option>
-        <option value="trinity919">trinity919</option>
-        <option value="jeremy873">jeremy873</option>
-        <option value="thomas987">thomas987</option>
-        <option value="sasha487">sasha487</option>
-      </select><br>
+      <select name="userid" id="users">
+        <% users.forEach(function(user) { %>
+          <option value="<%= user.UserID %>"><%= user.UserID %> (<%= user.fNameUser %> <%= user.lNameUser %>)</option>
+        <% }); %>
+      </select><br><br>
       <button type="submit">Remove User</button>
     </form>
   </div>
@@ -98,3 +102,4 @@
 
 </body>
 </html>
+```[cite: 10]
