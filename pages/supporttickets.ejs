@@ -6,6 +6,7 @@
 <!-- Sorry I'm going to re use this citation for userproducts and supporttickets. -->>
 <!-- Prompt (asked about other omitted files in same conversation as clients and pasted): --> 
 <!-- "what about userproducts and supporttickets?" --> 
+<!-- Prompt: "add logic to the userproducts ejs and support tickets ejs so there is an option to remove the respective items." -->
 <!-- URL: https://gemini.google.com/app -->
 
 <!DOCTYPE html>
@@ -96,6 +97,19 @@
       <button type="submit">Update Ticket</button>
     </form>
   </div>
+  <div class="column">
+    <h3>Remove Support Ticket</h3>
+    <form action="/supporttickets/delete-supportticket" method="POST">
+      <label for="ticketid_del">Choose Ticket ID to remove:</label><br>
+      <select name="ticketid" id="ticketid_del" required>
+        <option value="">Select a Ticket ID</option>
+        <% supporttickets.forEach(function(st) { %>
+          <option value="<%= st.TicketID %>">ID: <%= st.TicketID %> (Status: <%= st.TicketStatus %>)</option>
+        <% }); %>
+      </select><br><br>
+      <button type="submit">Remove Ticket</button>
+    </form>
+  </div>
 </div>
 </main>
 
@@ -105,4 +119,3 @@
 
 </body>
 </html>
-```[cite: 8]
