@@ -38,16 +38,16 @@ Accessed 8/12 and 8/13
 const express = require('express');  // We are using the express library for the web server[cite: 11]
 const app = express();               // We need to instantiate an express object to interact with the server in our code[cite: 11]
 const ejs = require('ejs'); //Using EJS templating engine[cite: 11]
-const fs = require('fs');[cite: 11]
-const path = require('path');[cite: 11]
-app.set("view engine", "ejs");[cite: 11]
-app.set("views", __dirname);[cite: 11]
-app.use(express.static(__dirname));[cite: 11]
-app.use(express.urlencoded({ extended: true }));[cite: 11]
-const PORT = 65180;     // Set a port number[cite: 11]
+const fs = require('fs'); //[cite: 11]
+const path = require('path'); // [cite: 11]
+app.set("view engine", "ejs");// [cite: 11]
+app.set("views", __dirname);// [cite: 11]
+app.use(express.static(__dirname));// [cite: 11]
+app.use(express.urlencoded({ extended: true }));// [cite: 11]
+const PORT = 65204;     // Set a port number[cite: 11]
 
 // Database 
-const db = require('./db-connector');[cite: 11]
+const db = require('./db-connector'); // [cite: 11]
 
 /*
     ROUTES
