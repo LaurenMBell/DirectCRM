@@ -221,7 +221,9 @@ CREATE PROCEDURE DeleteUser (
     IN p_UserID VARCHAR(50)
 )
 BEGIN
+    DELETE FROM SupportTickets WHERE UserID = p_UserID;
     DELETE FROM Users WHERE UserID = p_UserID;
+
 END //
 DELIMITER ;
 
