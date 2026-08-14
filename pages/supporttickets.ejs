@@ -1,6 +1,12 @@
 <!-- This snippet of code originally came from this EJS tutorial by DigitalOcean-->
 <!-- It can be found here: https://www.digitalocean.com/community/tutorials/how-to-use-ejs-to-template-your-node-application-->
 
+<!--AI Usage-->
+<!-- Google Gemini was used to call the deleting procedure. -->
+<!-- Sorry I'm going to re use this citation for userproducts and supporttickets. -->>
+<!-- Prompt (asked about other omitted files in same conversation as clients and pasted): --> 
+<!-- "what about userproducts and supporttickets?" --> 
+<!-- URL: https://gemini.google.com/app -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -68,8 +74,13 @@
   <div class="column">
     <h3>Update Support Ticket Status</h3>
     <form action="/supporttickets/update-supportticket" method="POST">
-      <label for="ticketid">TicketID:</label><br>
-      <input type="text" id="ticketid" name="ticketid"><br>
+      <label for="ticketid">Choose Ticket ID to Update:</label><br>
+      <select name="ticketid" id="ticketid" required>
+        <option value="">Select a Ticket ID</option>
+        <% supporttickets.forEach(function(st) { %>
+          <option value="<%= st.TicketID %>">ID: <%= st.TicketID %> (Status: <%= st.TicketStatus %>)</option>
+        <% }); %>
+      </select><br>
       <label for="status">Updated Status:</label><br>
       <select name="status" id="status">
           <option value="pending">Pending</option>
@@ -94,3 +105,4 @@
 
 </body>
 </html>
+```[cite: 8]
