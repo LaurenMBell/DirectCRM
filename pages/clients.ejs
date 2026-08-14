@@ -1,9 +1,14 @@
-<!-- This snippet of code originally came from this EJS tutorial by DigitalOcean-->
-<!-- It can be found here: https://www.digitalocean.com/community/tutorials/how-to-use-ejs-to-template-your-node-application-->
+<!-- This snippet of code originally came from this EJS tutorial by DigitalOcean-->[cite: 1]
+<!-- It can be found here: https://www.digitalocean.com/community/tutorials/how-to-use-ejs-to-template-your-node-application-->[cite: 1]
 
-<!--Other Sources used: -->
-<!-- (8/6) Mozilla Docs https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString -->
-<!-- (8/6) This StackOverflow post: https://stackoverflow.com/questions/69920051/how-do-i-iterate-through-object-in-order-to-display-the-values-on-ejs-->
+<!--Other Sources used: -->[cite: 1]
+<!-- (8/6) Mozilla Docs https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString -->[cite: 1]
+<!-- (8/6) This StackOverflow post: https://stackoverflow.com/questions/69920051/how-do-i-iterate-through-object-in-order-to-display-the-values-on-ejs-->[cite: 1]
+
+<!-- Google Gemini was used to call the deleting procedure. -->
+<!-- Prompt (uploaded the file and PL.SQL): "Call procedures appropriate for clients.ejs from PL.SQL in clients.ejs. --> 
+<!-- Return full code with original comments" --> 
+<!-- URL: https://gemini.google.com/app -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -60,13 +65,13 @@
       </form>
     </div>
     <div class="column">
-      <form>
+      <form action="/clients/delete-client" method="POST">
         <h3>Remove Client</h3>
         <label for="clients">Choose a client to remove:</label>
         <select name="clients" id="clients">
-          <option value="nike">Nike</option>
-          <option value="osu">Oregon State University</option>
-          <option value="flirsystems">FLIR Systems</option>
+          <% clients.forEach(function(client) { %>
+            <option value="<%= client.ClientID %>"><%= client.ClientName %></option>
+          <% }); %>
         </select><br>
         
         <button type="submit">Remove Client</button>
