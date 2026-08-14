@@ -37,18 +37,3 @@ body {
   flex: 1;
   padding: 10px; 
 }
-
-/*
-From this W3 Schools page: https://www.w3schools.com/css/css3_buttons.asp
-*/
-.button {
-  background-color: rgb(142, 136, 136);
-  border: none;
-  color: rgb(0, 0, 0);
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  cursor: pointer;
-}

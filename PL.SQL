@@ -8,7 +8,7 @@
     -- As a note, the remaining procedures were adapted from this code generated as well as referencing the Canvas starter code cited above[cite: 1]
 
 -- 8/13 
--- Used gemini to generate delete procedures for everything. 
+-- Used Google  to generate delete procedures for everything. 
 -- Prompt(uploaded all files from pages along with this one): "write procedures for deleting in PL.SQL and return the entire PL.SQL file with comments" 
 
 
@@ -190,6 +190,9 @@ CREATE PROCEDURE DeleteClient (
     IN p_ClientID VARCHAR(50)
 )
 BEGIN
+    DELETE FROM SupportTickets 
+    WHERE UserID IN (SELECT UserID FROM Users WHERE ClientID = p_ClientID);
+
     DELETE FROM Clients WHERE ClientID = p_ClientID;
 END //
 DELIMITER ;
@@ -203,6 +206,8 @@ CREATE PROCEDURE DeleteProduct (
     IN p_ProductID VARCHAR(50)
 )
 BEGIN
+    DELETE FROM Licenses WHERE ProductID = p_ProductID;
+    DELETE FROM UserProducts WHERE ProductID = p_ProductID;
     DELETE FROM Products WHERE ProductID = p_ProductID;
 END //
 DELIMITER ;
@@ -255,6 +260,8 @@ CREATE PROCEDURE DeleteEmployee (
     IN p_EmployeeID VARCHAR(50)
 )
 BEGIN
+    UPDATE Employees SET ManagerID = NULL WHERE ManagerID = p_EmployeeID; 
+    DELETE FROM SupportTickets WHERE EmployeeID = p_EmployeeID;
     DELETE FROM Employees WHERE EmployeeID = p_EmployeeID;
 END //
 DELIMITER ;
