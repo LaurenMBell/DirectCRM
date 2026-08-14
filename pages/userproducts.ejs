@@ -80,6 +80,29 @@
         <button type="submit">Update UserProduct</button>
       </form>
     </div>
+    <div class="column">
+      <form action="/userproducts/update-userproduct" method="POST">
+        <h3>Update UserProduct</h3>
+        <label for="userproductid">Choose a UserProduct to update:</label><br>
+        <select name="userproductid" id="userproductid" required>
+          <option value="">Select a UserProduct ID</option>
+
+          <% userproducts.forEach(function(up) { %>
+            <option value="<%= up.UserProductsID %>">
+              ID: <%= up.UserProductsID %> (User: <%= up.UserID %>, Product: <%= up.ProductID %>)
+            </option>
+          <% }); %>
+
+        </select><br><br>
+        <label for="userid">New User ID:</label><br>
+        <input type="text" id="userid" name="userid" required><br>
+
+        <label for="productid">New Product ID:</label><br>
+        <input type="text" id="productid" name="productid" required><br><br>
+
+        <button type="submit">Update UserProduct</button>
+      </form>
+    </div>
   </div>
 </div>
 </main>
